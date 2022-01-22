@@ -1,9 +1,13 @@
+import clsx from "clsx";
 import { withRouter } from "react-router-dom";
 import "./menu-item.styles.scss";
 
 export const MenuItem = withRouter(
   ({ title, history, imageUrl, size, linkUrl }) => (
-    <div className={`menu-item ${size}`} onClick={() => history.push(linkUrl)}>
+    <div
+      className={clsx("menu-item", size)}
+      onClick={() => history.push(linkUrl)}
+    >
       <div
         className="background-image"
         style={{
