@@ -1,7 +1,20 @@
+import { FC } from "react";
 import { CollectionItem } from "../collection-items/collection-item.component";
 import "./collection-preview.styles.scss";
 
-export const CollectionPreview = ({ title, items }) => (
+interface Item {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+interface Props {
+  title: string;
+  items: Item[];
+}
+
+export const CollectionPreview: FC<Props> = ({ title, items }) => (
   <div className="collection-preview">
     <h1 className="title">{title}</h1>
     <div className="preview">

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Component } from "react";
+import { ChangeEvent, Component, SyntheticEvent } from "react";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
@@ -13,7 +13,7 @@ export class SignUp extends Component {
     confirmPassword: "",
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
@@ -39,11 +39,12 @@ export class SignUp extends Component {
         confirmPassword: "",
       });
     } catch (error) {
-      console.log("error on sign up", error.message);
+      // TODO improve error handling?
+      console.log("error on sign up", error);
     }
   };
 
-  handleChange = (e) => {
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
     this.setState({ [name]: value });

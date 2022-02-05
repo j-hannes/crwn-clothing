@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Component } from "react";
+import { ChangeEvent, Component, SyntheticEvent } from "react";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
@@ -11,7 +11,7 @@ export class SignIn extends Component {
     password: "",
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const { email, password } = this.state;
@@ -20,11 +20,11 @@ export class SignIn extends Component {
       await signInWithEmailAndPassword(auth, email, password);
       this.setState({ email: "", password: "" });
     } catch (error) {
-      console.log("error on sign in", error.message);
+      console.log("error on sign in", error);
     }
   };
 
-  handleChange = (e) => {
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
     this.setState({ [name]: value });

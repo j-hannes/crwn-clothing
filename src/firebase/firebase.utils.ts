@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from "firebase/auth";
 import {
   doc,
   getDoc,
@@ -22,7 +27,10 @@ initializeApp(firebaseConfig);
 
 export const db = getFirestore();
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (
+  userAuth: User | null,
+  additionalData?: { displayName: string }
+) => {
   if (!userAuth) return;
 
   const userRef = doc(db, "users", userAuth.uid);
@@ -39,7 +47,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log("error creating user", error.message);
+      // TODO improve error handling?
+      console.log("error creating user", error);
     }
   }
 

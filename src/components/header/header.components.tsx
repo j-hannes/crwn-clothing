@@ -1,10 +1,15 @@
 import { signOut } from "firebase/auth";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
 import "./header.styles.scss";
 
-export const Header = ({ currentUser }) => (
+interface Props {
+  hasCurrentUser: boolean;
+}
+
+export const Header: FC<Props> = ({ hasCurrentUser }) => (
   <div className="header">
     <Link to="/">
       <Logo className="logo" />
@@ -16,7 +21,7 @@ export const Header = ({ currentUser }) => (
       <Link className="option" to="/contact">
         CONTACT
       </Link>
-      {currentUser ? (
+      {hasCurrentUser ? (
         <div className="option" onClick={() => signOut(auth)}>
           SIGN OUT
         </div>

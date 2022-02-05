@@ -1,6 +1,13 @@
+import { FC } from "react";
 import "./collection-item.styles.scss";
 
-export const CollectionItem = ({ id, name, price, imageUrl }) => (
+interface Props {
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+export const CollectionItem: FC<Props> = ({ name, price, imageUrl }) => (
   <div className="collection-item">
     <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
     <div className="collection-footer">

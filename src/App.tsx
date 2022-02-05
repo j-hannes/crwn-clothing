@@ -14,25 +14,27 @@ class App extends Component {
     currentUser: null,
   };
 
-  unsubscribeFromAuth = null;
+  unsubscribeFromAuth() {}
 
   componentDidMount() {
     this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const userRef = await createUserProfileDocument(currentUser);
-        onSnapshot(userRef, (snapshot) => {
-          this.setState(
-            {
-              currentUser: {
-                id: snapshot.id,
-                ...snapshot.data(),
+        if (userRef) {
+          onSnapshot(userRef, (snapshot) => {
+            this.setState(
+              {
+                currentUser: {
+                  id: snapshot.id,
+                  ...snapshot.data(),
+                },
               },
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
-        });
+              () => {
+                console.log(this.state);
+              }
+            );
+          });
+        }
       } else {
         this.setState({ currentUser });
       }
@@ -46,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header hasCurrentUser={!!this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
