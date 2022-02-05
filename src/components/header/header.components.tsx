@@ -1,9 +1,10 @@
-import { signOut, User } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { FC } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { User } from "../../features/user/types";
 import { auth } from "../../firebase/firebase.utils";
 import "./header.styles.scss";
 
@@ -37,6 +38,8 @@ const HeaderInner: FC<Props> = ({ currentUser }) => (
   </div>
 );
 
-export const Header = connect((state: RootState) => ({
+const mapState = (state: RootState) => ({
   currentUser: state.user.currentUser,
-}))(HeaderInner);
+});
+
+export const Header = connect(mapState)(HeaderInner);

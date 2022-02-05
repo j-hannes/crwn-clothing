@@ -6,8 +6,9 @@ import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { onSnapshot } from "firebase/firestore";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
+import { RootState } from "./app/store";
 import { Header } from "./components/header/header.components";
 import type { User } from "./features/user/types";
 import { userRegistered, userUnregistered } from "./features/user/user-slice";
@@ -17,6 +18,7 @@ import { ShopPage } from "./pages/shop/shop.component";
 import { SignInAndSignUpPage } from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 
 interface Props {
+  currentUser: User | null;
   userRegistered: ActionCreatorWithPayload<User, string>;
   userUnregistered: ActionCreatorWithoutPayload;
 }
@@ -53,15 +55,31 @@ class App extends Component<Props> {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/signIn" component={SignInAndSignUpPage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route
+            exact
+            path="/signIn"
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
-export default connect(null, {
+const mapState = ({ user }: RootState) => ({
+  currentUser: user.currentUser,
+});
+
+const mapDispatch = {
   userRegistered,
   userUnregistered,
-})(App);
+};
+
+export default connect(mapState, mapDispatch)(App);
