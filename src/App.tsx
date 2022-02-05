@@ -1,42 +1,44 @@
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  ActionCreatorWithoutPayload,
+  ActionCreatorWithPayload,
+} from "@reduxjs/toolkit";
+import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { onSnapshot } from "firebase/firestore";
-import React, { Component } from "react";
+import { Component } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import { Header } from "./components/header/header.components";
+import type { User } from "./features/user/types";
+import { userRegistered, userUnregistered } from "./features/user/user-slice";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { HomePage } from "./pages/homepage/homepage.component";
 import { ShopPage } from "./pages/shop/shop.component";
 import { SignInAndSignUpPage } from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 
-class App extends Component {
-  state = {
-    currentUser: null,
-  };
+interface Props {
+  userRegistered: ActionCreatorWithPayload<User, string>;
+  userUnregistered: ActionCreatorWithoutPayload;
+}
 
+class App extends Component<Props> {
   unsubscribeFromAuth() {}
 
   componentDidMount() {
+    const { userRegistered, userUnregistered } = this.props;
     this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const userRef = await createUserProfileDocument(currentUser);
         if (userRef) {
           onSnapshot(userRef, (snapshot) => {
-            this.setState(
-              {
-                currentUser: {
-                  id: snapshot.id,
-                  ...snapshot.data(),
-                },
-              },
-              () => {
-                console.log(this.state);
-              }
-            );
+            userRegistered({
+              id: snapshot.id,
+              ...(snapshot.data() as FirebaseUser),
+            });
           });
         }
       } else {
-        this.setState({ currentUser });
+        userUnregistered();
       }
     });
   }
@@ -48,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header hasCurrentUser={!!this.state.currentUser} />
+        <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
@@ -59,4 +61,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, {
+  userRegistered,
+  userUnregistered,
+})(App);

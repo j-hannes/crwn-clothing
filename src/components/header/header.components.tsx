@@ -1,15 +1,17 @@
-import { signOut } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 import { FC } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../../app/store";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
 import "./header.styles.scss";
 
 interface Props {
-  hasCurrentUser: boolean;
+  currentUser: User | null;
 }
 
-export const Header: FC<Props> = ({ hasCurrentUser }) => (
+const HeaderInner: FC<Props> = ({ currentUser }) => (
   <div className="header">
     <Link to="/">
       <Logo className="logo" />
@@ -21,7 +23,7 @@ export const Header: FC<Props> = ({ hasCurrentUser }) => (
       <Link className="option" to="/contact">
         CONTACT
       </Link>
-      {hasCurrentUser ? (
+      {currentUser ? (
         <div className="option" onClick={() => signOut(auth)}>
           SIGN OUT
         </div>
@@ -34,3 +36,7 @@ export const Header: FC<Props> = ({ hasCurrentUser }) => (
     </div>
   </div>
 );
+
+export const Header = connect((state: RootState) => ({
+  currentUser: state.user.currentUser,
+}))(HeaderInner);
