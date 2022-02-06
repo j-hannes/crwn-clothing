@@ -7,11 +7,12 @@ import { onSnapshot } from "firebase/firestore";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
-import { RootState } from "./app/store";
 import { Header } from "./components/header/header.components";
 import type { User } from "./features/user/types";
+import { selectCurrentUser } from "./features/user/user-selectors";
 import { userRegistered, userUnregistered } from "./features/user/user-slice";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { HomePage } from "./pages/homepage/homepage.component";
@@ -74,8 +75,8 @@ class App extends Component<Props> {
   }
 }
 
-const mapState = ({ user }: RootState) => ({
-  currentUser: user.currentUser,
+const mapState = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatch = {

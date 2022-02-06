@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { RootState } from "../../app/store";
 import { selectCartItems } from "../../features/cart/cart-selectors";
 import { CartItem as CartItemType } from "../../features/cart/cart-slice";
 import { CartItem } from "../cart-item/cart-item.component";
@@ -23,8 +23,8 @@ const CartDropdownInner: FC<Props> = ({ items }) => (
   </div>
 );
 
-const mapState = (state: RootState) => ({
-  items: selectCartItems(state),
+const mapState = createStructuredSelector({
+  items: selectCartItems,
 });
 
 export const CartDropdown = connect(mapState)(CartDropdownInner);

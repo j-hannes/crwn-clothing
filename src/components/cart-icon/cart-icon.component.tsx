@@ -1,8 +1,8 @@
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { FC } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { RootState } from "../../app/store";
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 import { selectCartItemsCount } from "../../features/cart/cart-selectors";
 import { cartDropdownToggled } from "../../features/cart/cart-slice";
@@ -25,8 +25,8 @@ export const CartIconInner: FC<Props> = ({
   );
 };
 
-const mapState = (state: RootState) => ({
-  itemCount: selectCartItemsCount(state),
+const mapState = createStructuredSelector({
+  itemCount: selectCartItemsCount,
 });
 
 const mapDispatch = {
