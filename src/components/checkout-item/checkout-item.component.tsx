@@ -1,14 +1,18 @@
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { FC } from "react";
+import { connect } from "react-redux";
 
-import { CartItem } from "../../features/cart/cart-slice";
+import { CartItem, itemRemovedFromCart } from "../../features/cart/cart-slice";
 import "./checkout-item.styles.scss";
 
 interface Props {
   item: CartItem;
+  itemRemovedFromCart: ActionCreatorWithPayload<CartItem["id"]>;
 }
 
 const CheckoutItemInner: FC<Props> = ({
-  item: { name, imageUrl, price, quantity },
+  item: { id, name, imageUrl, price, quantity },
+  itemRemovedFromCart,
 }) => {
   return (
     <div className="checkout-item">
@@ -18,9 +22,15 @@ const CheckoutItemInner: FC<Props> = ({
       <span className="name">{name}</span>
       <span className="quantity">{quantity}</span>
       <span className="price">{price}</span>
-      <span className="remove-button">&#10005;</span>
+      <span className="remove-button" onClick={() => itemRemovedFromCart(id)}>
+        &#10005;
+      </span>
     </div>
   );
 };
 
-export const CheckoutItem = CheckoutItemInner;
+const mapDispatch = {
+  itemRemovedFromCart,
+};
+
+export const CheckoutItem = connect(null, mapDispatch)(CheckoutItemInner);

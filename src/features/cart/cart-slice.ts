@@ -34,8 +34,15 @@ const cartSlice = createSlice({
         state.items.push(itemToAdd);
       }
     },
+    itemRemovedFromCart(state, action) {
+      const index = state.items.findIndex((item) => (item.id = action.payload));
+      if (index !== -1) {
+        state.items.splice(index, 1);
+      }
+    },
   },
 });
 
-export const { cartDropdownToggled, itemAddedToCart } = cartSlice.actions;
+export const { cartDropdownToggled, itemAddedToCart, itemRemovedFromCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
