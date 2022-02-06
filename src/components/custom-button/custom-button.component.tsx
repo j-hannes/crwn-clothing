@@ -5,14 +5,18 @@ import "./custom-button.styles.scss";
 
 interface Props {
   isGoogleSignIn?: boolean;
+  inverted?: boolean;
 }
 
 export const CustomButton: FC<
   Props & ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ children, isGoogleSignIn, ...props }) => {
+> = ({ children, isGoogleSignIn, inverted, ...props }) => {
   return (
     <button
-      className={clsx("custom-button", { "google-sign-in": isGoogleSignIn })}
+      className={clsx("custom-button", {
+        "google-sign-in": isGoogleSignIn,
+        inverted: inverted,
+      })}
       {...props}
     >
       {children}
