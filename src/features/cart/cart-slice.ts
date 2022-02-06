@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { ShopItem } from "./types";
 
-type CartItem = ShopItem & {
+export type CartItem = ShopItem & {
   quantity: number;
 };
 
