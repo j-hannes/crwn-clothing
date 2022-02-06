@@ -7,13 +7,16 @@ import { RootState } from "../../app/store";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { User } from "../../features/user/types";
 import { auth } from "../../firebase/firebase.utils";
+import { CartDropdown } from "../cart-dropdown/cart-dropdown.component";
+import { CartIcon } from "../cart-icon/cart-icon.component";
 import "./header.styles.scss";
 
 interface Props {
   currentUser: User | null;
+  hidden: boolean;
 }
 
-const HeaderInner: FC<Props> = ({ currentUser }) => (
+const HeaderInner: FC<Props> = ({ currentUser, hidden }) => (
   <div className="header">
     <Link to="/">
       <Logo className="logo" />
@@ -35,12 +38,15 @@ const HeaderInner: FC<Props> = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
+      <CartIcon />
     </div>
+    {!hidden && <CartDropdown />}
   </div>
 );
 
-const mapState = (state: RootState) => ({
-  currentUser: state.user.currentUser,
+const mapState = ({ user: { currentUser }, cart: { hidden } }: RootState) => ({
+  currentUser,
+  hidden,
 });
 
 export const Header = connect(mapState)(HeaderInner);
