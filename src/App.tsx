@@ -20,7 +20,7 @@ import { SignInAndSignUpPage } from "./pages/sign-in-and-sign-up/sign-in-and-sig
 
 interface Props {
   currentUser: User | null;
-  userRegistered: ActionCreatorWithPayload<User, string>;
+  userRegistered: ActionCreatorWithPayload<User>;
   userUnregistered: ActionCreatorWithoutPayload;
 }
 

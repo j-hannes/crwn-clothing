@@ -1,18 +1,12 @@
 import { FC } from "react";
 
+import { ShopItem } from "../../features/cart/types";
 import { CollectionItem } from "../collection-item/collection-item.component";
 import "./collection-preview.styles.scss";
 
-interface Item {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
 interface Props {
   title: string;
-  items: Item[];
+  items: ShopItem[];
 }
 
 export const CollectionPreview: FC<Props> = ({ title, items }) => (
@@ -21,8 +15,8 @@ export const CollectionPreview: FC<Props> = ({ title, items }) => (
     <div className="preview">
       {items
         .filter((_, idx) => idx < 4)
-        .map(({ id, ...item }) => (
-          <CollectionItem key={id} {...item} />
+        .map((item) => (
+          <CollectionItem key={item.id} item={item} />
         ))}
     </div>
   </div>
