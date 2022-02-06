@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { CollectionItem } from "../collection-items/collection-item.component";
 import "./collection-preview.styles.scss";
 
@@ -21,7 +22,7 @@ export const CollectionPreview: FC<Props> = ({ title, items }) => (
       {items
         .filter((_, idx) => idx < 4)
         .map(({ id, ...item }) => (
-          <CollectionItem key={id} {...item}></CollectionItem>
+          <CollectionItem key={id} {...item} />
         ))}
     </div>
   </div>

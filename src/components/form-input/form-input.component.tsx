@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FC, InputHTMLAttributes } from "react";
+
 import "./form-input.styles.scss";
 
 interface Props {

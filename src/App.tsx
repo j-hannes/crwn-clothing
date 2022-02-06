@@ -1,12 +1,13 @@
 import {
-  ActionCreatorWithoutPayload,
   ActionCreatorWithPayload,
+  ActionCreatorWithoutPayload,
 } from "@reduxjs/toolkit";
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
+import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
 import { onSnapshot } from "firebase/firestore";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+
 import "./App.css";
 import { RootState } from "./app/store";
 import { Header } from "./components/header/header.components";

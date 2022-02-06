@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import "./collection-item.styles.scss";
 
 interface Props {

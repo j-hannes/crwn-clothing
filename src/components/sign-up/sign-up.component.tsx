@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
+
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { CustomButton } from "../custom-button/custom-button.component";
 import { FormInput } from "../form-input/form-input.component";
