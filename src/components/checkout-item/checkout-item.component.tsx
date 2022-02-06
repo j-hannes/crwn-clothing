@@ -1,17 +1,27 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import clsx from "clsx";
 import { FC } from "react";
 import { connect } from "react-redux";
 
-import { CartItem, itemRemovedFromCart } from "../../features/cart/cart-slice";
+import {
+  CartItem,
+  itemDecreasedInCart,
+  itemIncreasedInCart,
+  itemRemovedFromCart,
+} from "../../features/cart/cart-slice";
 import "./checkout-item.styles.scss";
 
 interface Props {
   item: CartItem;
+  itemIncreasedInCart: ActionCreatorWithPayload<CartItem["id"]>;
+  itemDecreasedInCart: ActionCreatorWithPayload<CartItem["id"]>;
   itemRemovedFromCart: ActionCreatorWithPayload<CartItem["id"]>;
 }
 
 const CheckoutItemInner: FC<Props> = ({
   item: { id, name, imageUrl, price, quantity },
+  itemIncreasedInCart,
+  itemDecreasedInCart,
   itemRemovedFromCart,
 }) => {
   return (
@@ -20,7 +30,20 @@ const CheckoutItemInner: FC<Props> = ({
         <img alt="item" src={imageUrl} />
       </div>
       <span className="name">{name}</span>
-      <span className="quantity">{quantity}</span>
+      <span className="quantity">
+        <div
+          className={clsx("arrow", {
+            disabled: quantity === 1,
+          })}
+          onClick={() => itemDecreasedInCart(id)}
+        >
+          &#10094;
+        </div>
+        <span className="value">{quantity}</span>
+        <div className="arrow" onClick={() => itemIncreasedInCart(id)}>
+          &#10095;
+        </div>
+      </span>
       <span className="price">{price}</span>
       <span className="remove-button" onClick={() => itemRemovedFromCart(id)}>
         &#10005;
@@ -30,6 +53,8 @@ const CheckoutItemInner: FC<Props> = ({
 };
 
 const mapDispatch = {
+  itemIncreasedInCart,
+  itemDecreasedInCart,
   itemRemovedFromCart,
 };
 
