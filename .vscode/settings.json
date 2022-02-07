@@ -3,6 +3,7 @@
     "clsx",
     "firestore",
     "persistor",
-    "signin"
+    "signin",
+    "womens"
   ]
 }

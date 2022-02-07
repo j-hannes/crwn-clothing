@@ -2,15 +2,10 @@ import clsx from "clsx";
 import { FC } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
+import { Section } from "../../features/directory/directory-slice";
 import "./menu-item.styles.scss";
 
-interface Props {
-  title: string;
-  history: any;
-  imageUrl: string;
-  size?: string;
-  linkUrl: string;
-}
+type Props = Omit<Section, "id">;
 
 export const MenuItemInner: FC<Props & RouteComponentProps> = ({
   title,
