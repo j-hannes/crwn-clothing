@@ -36,7 +36,7 @@ const CheckoutPageInner: FC<Props> = ({ items, total }) => {
         </div>
       </div>
       {items.map((item) => (
-        <CheckoutItem item={item} />
+        <CheckoutItem key={item.id} item={item} />
       ))}
       <div className="total">TOTAL: {total} €</div>
     </div>
