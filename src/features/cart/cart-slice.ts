@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { ShopItem } from "./types";
+import { CollectionItem } from "./types";
 
-export type CartItem = ShopItem & {
+export type CartItem = CollectionItem & {
   quantity: number;
 };
 

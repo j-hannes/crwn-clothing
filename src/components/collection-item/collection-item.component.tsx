@@ -3,13 +3,13 @@ import { FC } from "react";
 import { connect } from "react-redux";
 
 import { itemAddedToCart } from "../../features/cart/cart-slice";
-import { ShopItem } from "../../features/cart/types";
+import { CollectionItem as CollectionItemType } from "../../features/cart/types";
 import { CustomButton } from "../custom-button/custom-button.component";
 import "./collection-item.styles.scss";
 
 interface Props {
-  item: ShopItem;
-  itemAddedToCart: ActionCreatorWithPayload<ShopItem>;
+  item: CollectionItemType;
+  itemAddedToCart: ActionCreatorWithPayload<CollectionItemType>;
 }
 
 const CollectionItemInner: FC<Props> = ({ item, itemAddedToCart }) => {

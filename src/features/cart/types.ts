@@ -1,4 +1,4 @@
-export interface ShopItem {
+export interface CollectionItem {
   id: number;
   name: string;
   price: number;

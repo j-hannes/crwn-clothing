@@ -1,12 +1,12 @@
 import { FC } from "react";
 
-import { ShopItem } from "../../features/cart/types";
+import { CollectionItem as CollectionItemType } from "../../features/cart/types";
 import { CollectionItem } from "../collection-item/collection-item.component";
 import "./collection-preview.styles.scss";
 
 interface Props {
   title: string;
-  items: ShopItem[];
+  items: CollectionItemType[];
 }
 
 export const CollectionPreview: FC<Props> = ({ title, items }) => (
