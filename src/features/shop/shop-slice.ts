@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { Collection } from "../directory/types";
 import { SHOP_DATA } from "./shop.data";
 
-const initialState = {
+interface ShopState {
+  collections: Record<string, Collection>;
+}
+
+const initialState: ShopState = {
   collections: SHOP_DATA,
 };
 

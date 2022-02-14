@@ -1,10 +1,17 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "../../app/store";
+import { CollectionName } from "../directory/types";
 
 const selectShop = (state: RootState) => state.shop;
 
-export const selectShopCollections = createSelector(
+export const selectCollections = createSelector(
   [selectShop],
   (shop) => shop.collections
 );
+
+export const selectCollection = (collectionName: CollectionName) =>
+  createSelector(
+    [selectCollections],
+    (collections) => collections[collectionName]
+  );
