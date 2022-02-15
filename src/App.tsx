@@ -10,15 +10,15 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
 import "./App.css";
-import { Header } from "./components/header/header.components";
+import { Header } from "./components/Header/Header";
 import type { User } from "./features/user/types";
 import { selectCurrentUser } from "./features/user/user-selectors";
 import { userRegistered, userUnregistered } from "./features/user/user-slice";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { CheckoutPage } from "./pages/checkout/checkout.component";
-import { HomePage } from "./pages/homepage/homepage.component";
-import { ShopPage } from "./pages/shop/shop.component";
-import { SignInAndSignUpPage } from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import { CheckoutPage } from "./pages/CheckoutPage/CheckoutPage";
+import { HomePage } from "./pages/HomePage/HomePage";
+import { ShopPage } from "./pages/ShopPage/ShopPage";
+import { SignInAndSignUpPage } from "./pages/SignInAndSignUpPage/SignInAndSignUpPage";
 
 interface Props {
   currentUser: User | null;
