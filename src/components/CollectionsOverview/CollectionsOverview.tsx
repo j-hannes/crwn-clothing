@@ -2,12 +2,12 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { selectCollections } from "../../features/shop/shop-selectors";
+import { selectCollectionsForPreview } from "../../features/shop/shop-selectors";
 import { CollectionPreview } from "../CollectionPreview/CollectionPreview";
 import "./styles.scss";
 
 const mapState = createStructuredSelector({
-  collections: selectCollections,
+  collections: selectCollectionsForPreview,
 });
 
 const CollectionsOverviewInner: FC<ReturnType<typeof mapState>> = ({
@@ -15,7 +15,7 @@ const CollectionsOverviewInner: FC<ReturnType<typeof mapState>> = ({
 }) => {
   return (
     <div className="collections-overview">
-      {Object.values(collections).map(({ id, ...collection }) => (
+      {collections.map(({ id, ...collection }) => (
         <CollectionPreview key={id} {...collection} />
       ))}
     </div>

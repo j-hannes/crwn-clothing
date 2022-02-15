@@ -10,6 +10,11 @@ export const selectCollections = createSelector(
   (shop) => shop.collections
 );
 
+export const selectCollectionsForPreview = createSelector(
+  [selectCollections],
+  (collections) => Object.values(collections)
+);
+
 export const selectCollection = (collectionName: CollectionName) =>
   createSelector(
     [selectCollections],
