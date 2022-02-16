@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { CollectionItem } from "./types";
 
@@ -10,6 +10,7 @@ interface CartState {
   hidden: boolean;
   items: CartItem[];
 }
+
 const initialState: CartState = {
   hidden: true,
   items: [],
@@ -22,7 +23,7 @@ const cartSlice = createSlice({
     cartDropdownToggled(state) {
       state.hidden = !state.hidden;
     },
-    itemAddedToCart(state, action) {
+    itemAddedToCart: (state, action: PayloadAction<CollectionItem>) => {
       const itemToAdd = action.payload;
       const itemAlreadyAdded = state.items.find(
         (item) => item.id === itemToAdd.id
@@ -30,8 +31,10 @@ const cartSlice = createSlice({
       if (itemAlreadyAdded) {
         itemAlreadyAdded.quantity++;
       } else {
-        itemToAdd.quantity = 1;
-        state.items.push(itemToAdd);
+        state.items.push({
+          ...itemToAdd,
+          quantity: 1,
+        });
       }
     },
     itemIncreasedInCart(state, action) {
