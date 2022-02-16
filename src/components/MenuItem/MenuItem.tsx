@@ -25,8 +25,8 @@ export const MenuItemInner: FC<Props & RouteComponentProps> = ({
       }}
     />
     <div className="content">
-      <h1 className="title">{title}</h1>
-      <span className="subtitle">SHOW NOW</span>
+      <span className="title">{title}</span>
+      <span className="subtitle">SHOP NOW</span>
     </div>
   </div>
 );
