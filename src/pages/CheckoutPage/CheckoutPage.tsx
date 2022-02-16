@@ -8,6 +8,7 @@ import {
   selectCartTotal,
 } from "../../features/cart/cart-selectors";
 import { CartItem } from "../../features/cart/cart-slice";
+import { StripeCheckoutButton } from "../../features/stripe/StripeCheckoutButton";
 import "./styles.scss";
 
 interface Props {
@@ -39,6 +40,12 @@ const CheckoutPageInner: FC<Props> = ({ items, total }) => {
         <CheckoutItem key={item.id} item={item} />
       ))}
       <div className="total">TOTAL: {total} €</div>
+      <div className="test-warning">
+        *Please use the following test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp. 01/24 - CVV: 123
+      </div>
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };

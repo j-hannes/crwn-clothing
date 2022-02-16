@@ -26,6 +26,7 @@
             - CustomButton
     - CheckoutPage
       - CheckoutItem
+      - StripeCheckoutButton
     - SignInAndSignUpPage
       - SignIn
         - FormInput
