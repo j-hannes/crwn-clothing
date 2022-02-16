@@ -11,6 +11,10 @@
   right: 40px;
   z-index: 5;
 
+  @media (prefers-color-scheme: dark) {
+    background-color: #333;
+  }
+
   .empty-message {
     font-size: 18px;
     margin: 50px auto;

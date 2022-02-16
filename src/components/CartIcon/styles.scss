@@ -7,6 +7,12 @@
   justify-content: center;
   cursor: pointer;
 
+  @media (prefers-color-scheme: dark) {
+    path {
+      fill: white !important;
+    }
+  }
+
   .shopping-icon {
     width: 24px;
     height: 24px;

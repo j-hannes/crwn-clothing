@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import "./App.css";
+import "./App.scss";
 import { Header } from "./components/Header/Header";
 import type { User } from "./features/user/types";
 import { selectCurrentUser } from "./features/user/user-selectors";
@@ -54,7 +54,7 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
