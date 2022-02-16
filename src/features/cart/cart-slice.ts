@@ -20,39 +20,39 @@ const cartSlice = createSlice({
   name: "Cart",
   initialState,
   reducers: {
-    cartDropdownToggled(state) {
-      state.hidden = !state.hidden;
+    cartDropdownToggled(draft) {
+      draft.hidden = !draft.hidden;
     },
-    itemAddedToCart: (state, action: PayloadAction<CollectionItem>) => {
+    itemAddedToCart: (draft, action: PayloadAction<CollectionItem>) => {
       const itemToAdd = action.payload;
-      const itemAlreadyAdded = state.items.find(
+      const itemAlreadyAdded = draft.items.find(
         (item) => item.id === itemToAdd.id
       );
       if (itemAlreadyAdded) {
         itemAlreadyAdded.quantity++;
       } else {
-        state.items.push({
+        draft.items.push({
           ...itemToAdd,
           quantity: 1,
         });
       }
     },
-    itemIncreasedInCart(state, action) {
-      const item = state.items.find((item) => item.id === action.payload);
+    itemIncreasedInCart(draft, action) {
+      const item = draft.items.find((item) => item.id === action.payload);
       if (item) {
         item.quantity++;
       }
     },
-    itemDecreasedInCart(state, action) {
-      const item = state.items.find((item) => item.id === action.payload);
+    itemDecreasedInCart(draft, action) {
+      const item = draft.items.find((item) => item.id === action.payload);
       if (item && item.quantity > 1) {
         item.quantity--;
       }
     },
-    itemRemovedFromCart(state, action) {
-      const index = state.items.findIndex((item) => (item.id = action.payload));
+    itemRemovedFromCart(draft, action) {
+      const index = draft.items.findIndex((item) => (item.id = action.payload));
       if (index !== -1) {
-        state.items.splice(index, 1);
+        draft.items.splice(index, 1);
       }
     },
   },

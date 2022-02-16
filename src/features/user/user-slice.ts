@@ -14,11 +14,11 @@ const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
-    userRegistered(state, action) {
-      state.currentUser = action.payload;
+    userRegistered(draft, action) {
+      draft.currentUser = action.payload;
     },
-    userUnregistered(state) {
-      state.currentUser = null;
+    userUnregistered(draft) {
+      draft.currentUser = null;
     },
   },
 });
