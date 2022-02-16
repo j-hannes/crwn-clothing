@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { User } from "./types";
 
@@ -14,7 +14,7 @@ const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
-    userRegistered(draft, action) {
+    userRegistered(draft, action: PayloadAction<User>) {
       draft.currentUser = action.payload;
     },
     userUnregistered(draft) {

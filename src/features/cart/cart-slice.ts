@@ -37,19 +37,19 @@ const cartSlice = createSlice({
         });
       }
     },
-    itemIncreasedInCart(draft, action) {
+    itemIncreasedInCart(draft, action: PayloadAction<CartItem["id"]>) {
       const item = draft.items.find((item) => item.id === action.payload);
       if (item) {
         item.quantity++;
       }
     },
-    itemDecreasedInCart(draft, action) {
+    itemDecreasedInCart(draft, action: PayloadAction<CartItem["id"]>) {
       const item = draft.items.find((item) => item.id === action.payload);
       if (item && item.quantity > 1) {
         item.quantity--;
       }
     },
-    itemRemovedFromCart(draft, action) {
+    itemRemovedFromCart(draft, action: PayloadAction<CartItem["id"]>) {
       const index = draft.items.findIndex((item) => (item.id = action.payload));
       if (index !== -1) {
         draft.items.splice(index, 1);
