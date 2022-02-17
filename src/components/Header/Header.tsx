@@ -40,17 +40,9 @@ const Options = styled.div`
   justify-content: flex-end;
 `;
 
-const option = css`
+const Option = styled.div`
   padding: 10px 15px;
   cursor: pointer;
-`;
-
-const Option = styled.div`
-  ${option}
-`;
-
-const OptionLink = styled(Link)`
-  ${option}
 `;
 
 const HeaderInner: FC<Props> = ({ currentUser, hidden }) => (
@@ -59,12 +51,19 @@ const HeaderInner: FC<Props> = ({ currentUser, hidden }) => (
       <Logo className="logo" />
     </LogoContainer>
     <Options>
-      <OptionLink to="/shop">SHOP</OptionLink>
-      <OptionLink to="/contact">CONTACT</OptionLink>
+      <Option as={Link} to="/shop">
+        SHOP
+      </Option>
+      <Option as={Link} to="/contact">
+        CONTACT
+      </Option>
       {currentUser ? (
         <Option onClick={() => signOut(auth)}>SIGN OUT</Option>
       ) : (
-        <OptionLink to="/signin"> SIGN IN</OptionLink>
+        <Option as={Link} to="/signin">
+          {" "}
+          SIGN IN
+        </Option>
       )}
       <CartIcon />
     </Options>
