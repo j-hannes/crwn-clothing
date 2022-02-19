@@ -1,21 +1,38 @@
 import { FC } from "react";
+import styled from "styled-components";
 
 import { CollectionItem as CollectionItemType } from "../../features/cart/types";
 import { CollectionItem } from "../CollectionItem/CollectionItem";
-import "./styles.scss";
 
 interface Props {
   title: string;
   items: CollectionItemType[];
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+`;
+
+const Title = styled.h1`
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+`;
+
+const Preview = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const CollectionPreview: FC<Props> = ({ title, items }) => (
-  <div className="collection-preview">
-    <h1 className="title">{title}</h1>
-    <div className="preview">
+  <Container>
+    <Title>{title}</Title>
+    <Preview>
       {items.slice(0, 4).map((item) => (
         <CollectionItem key={item.id} item={item} />
       ))}
-    </div>
-  </div>
+    </Preview>
+  </Container>
 );

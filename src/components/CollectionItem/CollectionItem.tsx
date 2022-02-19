@@ -68,7 +68,7 @@ const Price = styled.span`
 const CollectionItemInner: FC<Props> = ({ item, itemAddedToCart }) => {
   const { name, price, imageUrl } = item;
   return (
-    <Container className="collection-item">
+    <Container>
       <Image style={{ backgroundImage: `url(${imageUrl})` }} />
       <Footer>
         <Name>{name}</Name>

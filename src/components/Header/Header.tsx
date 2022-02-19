@@ -3,7 +3,7 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { selectCartHidden } from "../../features/cart/cart-selectors";
@@ -48,7 +48,7 @@ const Option = styled.div`
 const HeaderInner: FC<Props> = ({ currentUser, hidden }) => (
   <Container>
     <LogoContainer to="/">
-      <Logo className="logo" />
+      <Logo />
     </LogoContainer>
     <Options>
       <Option as={Link} to="/shop">

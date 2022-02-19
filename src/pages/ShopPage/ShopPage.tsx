@@ -6,7 +6,7 @@ import { CollectionPage } from "../CollectionPage/CollectionPage";
 
 export const ShopPage: FC<RouteComponentProps> = ({ match }) => {
   return (
-    <div className="shop-page">
+    <div>
       <Route exact path={match.path} component={CollectionsOverview} />
       <Route
         path={`${match.path}/:collectionName`}

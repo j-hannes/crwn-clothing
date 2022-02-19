@@ -1,10 +1,25 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
+import styled from "styled-components";
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { CustomButton } from "../CustomButton/CustomButton";
 import { FormInput } from "../FormInput/FormInput";
-import "./styles.scss";
+
+const Container = styled.div`
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h2`
+  margin: 10px 0;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export class SignIn extends Component {
   state = {
@@ -33,8 +48,8 @@ export class SignIn extends Component {
 
   render() {
     return (
-      <div className="sign-in">
-        <h2 className="title">I already have an account</h2>
+      <Container>
+        <Title>I already have an account</Title>
         <span>Sign in with your email and password</span>
         <form onSubmit={this.handleSubmit}>
           <FormInput
@@ -53,7 +68,7 @@ export class SignIn extends Component {
             label="password"
             required
           />
-          <div className="buttons">
+          <Buttons>
             <CustomButton type="submit">Sign in</CustomButton>
             <CustomButton
               type="button"
@@ -62,9 +77,9 @@ export class SignIn extends Component {
             >
               Sign in with Google
             </CustomButton>
-          </div>
+          </Buttons>
         </form>
-      </div>
+      </Container>
     );
   }
 }

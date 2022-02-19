@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface Section {
   title: string;
   imageUrl: string;
-  size?: string;
+  size?: "large";
   id: number;
   linkUrl: string;
 }

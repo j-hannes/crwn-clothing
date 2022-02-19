@@ -8,8 +8,8 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import styled from "styled-components";
 
-import "./App.scss";
 import { Header } from "./components/Header/Header";
 import type { User } from "./features/user/types";
 import { selectCurrentUser } from "./features/user/user-selectors";
@@ -25,6 +25,25 @@ interface Props {
   userRegistered: ActionCreatorWithPayload<User>;
   userUnregistered: ActionCreatorWithoutPayload;
 }
+
+const Container = styled.div`
+  padding: 20px 40px;
+  min-height: 100vh;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: #333;
+    color: white;
+
+    a {
+      color: white;
+    }
+  }
+`;
 
 class App extends Component<Props> {
   unsubscribeFromAuth() {}
@@ -54,7 +73,7 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <div className="app">
+      <Container>
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -73,7 +92,7 @@ class App extends Component<Props> {
             }
           />
         </Switch>
-      </div>
+      </Container>
     );
   }
 }
