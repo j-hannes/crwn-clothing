@@ -1,11 +1,11 @@
 import { InputHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
-const subColor = "grey";
 
-const shrinkLabelStyles = (mainColor: string) => css`
+const labelColor = "grey";
+
+const shrinkLabelStyles = css`
   top: -14px;
   font-size: 12px;
-  color: ${mainColor};
 `;
 
 export const Group = styled.div`
@@ -17,19 +17,21 @@ export const Group = styled.div`
   }
 `;
 
-type InputProps = InputHTMLAttributes<HTMLInputElement> & { mainColor: string };
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  isDarkMode: boolean;
+};
 
 export const Input = styled.input<InputProps>`
   background: none;
-  background-color: white;
-  color: ${subColor};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? "#333" : "white")};
+  color: ${labelColor};
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid ${subColor};
+  border-bottom: 1px solid ${labelColor};
   margin: 25px 0;
 
   &:focus {
@@ -37,12 +39,12 @@ export const Input = styled.input<InputProps>`
   }
 
   &:focus ~ label {
-    ${({ mainColor }) => shrinkLabelStyles(mainColor)}
+    ${shrinkLabelStyles}
   }
 `;
 
-export const Label = styled.label<{ shrink: boolean; mainColor: string }>`
-  color: ${subColor};
+export const Label = styled.label<{ shrink: boolean }>`
+  color: ${labelColor};
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -50,5 +52,6 @@ export const Label = styled.label<{ shrink: boolean; mainColor: string }>`
   left: 5px;
   top: 10px;
   transition: 300ms ease all;
-  ${({ shrink, mainColor }) => shrink && shrinkLabelStyles(mainColor)}
+
+  ${({ shrink }) => shrink && shrinkLabelStyles}
 `;

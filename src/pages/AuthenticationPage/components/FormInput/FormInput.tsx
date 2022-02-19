@@ -13,15 +13,11 @@ export const FormInput: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
   ...props
 }) => {
   const isDarkMode = useDarkMode();
-  const mainColor = isDarkMode ? "white" : "black";
   return (
     <Group>
-      <Input {...props} mainColor={mainColor} />
+      <Input {...props} isDarkMode={isDarkMode} />
       {label && (
-        <Label
-          mainColor={mainColor}
-          shrink={props.value !== undefined && props.value !== ""}
-        >
+        <Label shrink={props.value !== undefined && props.value !== ""}>
           {label}
         </Label>
       )}
