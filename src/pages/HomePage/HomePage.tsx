@@ -1,16 +1,28 @@
-import styled from "styled-components";
+import { FC } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { Directory } from "../../components/Directory/Directory";
+import { MenuItem } from "../../components/MenuItem/MenuItem";
+import { selectDirectorySections } from "../../features/directory/directory-selectors";
+import { Section } from "../../features/directory/directory-slice";
+import { Menu } from "./HomePage.style";
 
-// TODO these styles are completely obsolete? (hence this component useless?)
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+interface Props {
+  sections: Section[];
+}
 
-export const HomePage = () => (
-  <Container>
-    <Directory />
-  </Container>
-);
+const HomePageInner: FC<Props> = ({ sections }) => {
+  return (
+    <Menu>
+      {sections.map(({ id, ...props }) => (
+        <MenuItem key={id} {...props} />
+      ))}
+    </Menu>
+  );
+};
+
+const mapState = createStructuredSelector({
+  sections: selectDirectorySections,
+});
+
+export const HomePage = connect(mapState)(HomePageInner);

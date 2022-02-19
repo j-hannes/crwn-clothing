@@ -15,10 +15,10 @@ import type { User } from "./features/user/types";
 import { selectCurrentUser } from "./features/user/user-selectors";
 import { userRegistered, userUnregistered } from "./features/user/user-slice";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { AuthenticationPage } from "./pages/AuthenticationPage/AuthenticationPage";
 import { CheckoutPage } from "./pages/CheckoutPage/CheckoutPage";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { ShopPage } from "./pages/ShopPage/ShopPage";
-import { SignInAndSignUpPage } from "./pages/SignInAndSignUpPage/SignInAndSignUpPage";
 
 interface Props {
   currentUser: User | null;
@@ -81,13 +81,13 @@ class App extends Component<Props> {
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
-            path="/signIn"
+            path="/auth"
             render={() =>
               // TODO put redirect into SignInAndSignUpPage ?
               this.props.currentUser ? (
                 <Redirect to="/" />
               ) : (
-                <SignInAndSignUpPage />
+                <AuthenticationPage />
               )
             }
           />

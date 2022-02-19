@@ -1,20 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
-import styled from "styled-components";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { CustomButton } from "../CustomButton/CustomButton";
 import { FormInput } from "../FormInput/FormInput";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 380px;
-`;
-
-const Title = styled.h2`
-  margin: 10px 0;
-`;
+import { Main, Title } from "./SignUp.styles";
 
 export class SignUp extends Component {
   state = {
@@ -64,7 +54,7 @@ export class SignUp extends Component {
   render() {
     const { displayName, email, password, confirmPassword } = this.state;
     return (
-      <Container>
+      <Main>
         <Title>I do not have an account</Title>
         <span>Sign up with your email and password</span>
         <form onSubmit={this.handleSubmit}>
@@ -102,7 +92,7 @@ export class SignUp extends Component {
           />
           <CustomButton type="submit">SIGN UP</CustomButton>
         </form>
-      </Container>
+      </Main>
     );
   }
 }

@@ -1,25 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
-import styled from "styled-components";
 
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import { CustomButton } from "../CustomButton/CustomButton";
 import { FormInput } from "../FormInput/FormInput";
-
-const Container = styled.div`
-  width: 380px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  margin: 10px 0;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+import { Buttons, Container, Title } from "./SignIn.styles";
 
 export class SignIn extends Component {
   state = {
