@@ -1,8 +1,11 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-import { CustomButton } from "../CustomButton/CustomButton";
+import { CustomButton } from "../../../../components/CustomButton/CustomButton";
+import {
+  auth,
+  createUserProfileDocument,
+} from "../../../../firebase/firebase.utils";
 import { FormInput } from "../FormInput/FormInput";
 import { Main, Title } from "./SignUp.styles";
 

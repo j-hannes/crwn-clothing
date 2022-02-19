@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 
-import { CollectionsOverview } from "../../components/CollectionsOverview/CollectionsOverview";
-import { CollectionPage } from "../CollectionPage/CollectionPage";
+import { CollectionPage } from "./pages/CollectionPage/CollectionPage";
+import { CollectionsOverview } from "./pages/CollectionsOverview/CollectionsOverview";
 
 export const ShopPage: FC<RouteComponentProps> = ({ match }) => {
   return (

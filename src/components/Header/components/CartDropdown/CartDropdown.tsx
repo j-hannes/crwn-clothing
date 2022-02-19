@@ -4,15 +4,15 @@ import { connect } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { selectCartItems } from "../../features/cart/cart-selectors";
+import { selectCartItems } from "../../../../features/cart/cart-selectors";
 import {
   CartItem as CartItemType,
   cartDropdownToggled,
-} from "../../features/cart/cart-slice";
-import { useDarkMode } from "../../hooks/useDarkMode";
-import { CartItem } from "../CartItem/CartItem";
-import { CustomButton } from "../CustomButton/CustomButton";
+} from "../../../../features/cart/cart-slice";
+import { useDarkMode } from "../../../../hooks/useDarkMode";
+import { CustomButton } from "../../../CustomButton/CustomButton";
 import { CartItems, EmptyMessage, Main } from "./CartDropdown.styles";
+import { CartItem } from "./components/CartItem/CartItem";
 
 interface Props {
   items: CartItemType[];

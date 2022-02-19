@@ -3,8 +3,8 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { selectCartItemsCount } from "../../features/cart/cart-selectors";
-import { cartDropdownToggled } from "../../features/cart/cart-slice";
+import { selectCartItemsCount } from "../../../../features/cart/cart-selectors";
+import { cartDropdownToggled } from "../../../../features/cart/cart-slice";
 import { ItemCount, Main, ShoppingIcon } from "./CartIcon.styles";
 
 interface Props {

@@ -2,9 +2,9 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 
-import { RootState } from "../../app/store";
-import { CollectionName } from "../../features/directory/types";
-import { selectCollection } from "../../features/shop/shop-selectors";
+import { RootState } from "../../../../app/store";
+import { CollectionName } from "../../../../features/directory/types";
+import { selectCollection } from "../../../../features/shop/shop-selectors";
 import { Item, Items, Main, Title } from "./CollectionPage.styles";
 
 interface ShopRouteParams {

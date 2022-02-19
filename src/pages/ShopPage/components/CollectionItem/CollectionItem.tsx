@@ -2,8 +2,8 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { FC } from "react";
 import { connect } from "react-redux";
 
-import { itemAddedToCart } from "../../features/cart/cart-slice";
-import { CollectionItem as CollectionItemType } from "../../features/cart/types";
+import { itemAddedToCart } from "../../../../features/cart/cart-slice";
+import { CollectionItem as CollectionItemType } from "../../../../features/cart/types";
 import {
   Button,
   Footer,

@@ -1,9 +1,8 @@
 import { FC } from "react";
 
-import { CollectionItem as CollectionItemType } from "../../features/cart/types";
-import { CollectionItem } from "../CollectionItem/CollectionItem";
-import { Title } from "../MenuItem/MenuItem.styles";
-import { Main, Preview } from "./CollectionPreview.styles";
+import { CollectionItem as CollectionItemType } from "../../../../../../features/cart/types";
+import { CollectionItem } from "../../../../components/CollectionItem/CollectionItem";
+import { Main, Preview, Title } from "./CollectionPreview.styles";
 
 interface Props {
   title: string;

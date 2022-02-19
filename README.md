@@ -10,11 +10,11 @@
     - CartIcon
       - ShoppingIcon
     - CartDropdown
+      - CartItem
       - CustomButton
   - Routes:
     - HomePage
-      - Directory
-        - MenuItem
+      - MenuItem
     - ShopPage
       - Routes:
         - CollectionOverview
@@ -27,7 +27,7 @@
     - CheckoutPage
       - CheckoutItem
       - StripeCheckoutButton
-    - SignInAndSignUpPage
+    - AuthenticationPage
       - SignIn
         - FormInput
         - CustomButton

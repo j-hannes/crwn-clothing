@@ -2,7 +2,6 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { CheckoutItem } from "../../components/CheckoutItem/CheckoutItem";
 import {
   selectCartItems,
   selectCartTotal,
@@ -10,6 +9,7 @@ import {
 import { CartItem } from "../../features/cart/cart-slice";
 import { StripeCheckoutButton } from "../../features/stripe/StripeCheckoutButton";
 import { Block, Header, Main, Total, Warning } from "./CheckoutPage.styles";
+import { CheckoutItem } from "./components/CheckoutItem/CheckoutItem";
 
 interface Props {
   items: CartItem[];

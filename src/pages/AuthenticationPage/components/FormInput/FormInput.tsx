@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from "react";
 
-import { useDarkMode } from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../../hooks/useDarkMode";
 import { Group, Input, Label } from "./FormInput.styles";
 
 interface Props {
