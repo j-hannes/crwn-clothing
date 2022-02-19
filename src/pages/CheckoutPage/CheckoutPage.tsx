@@ -5,9 +5,10 @@ import { createStructuredSelector } from "reselect";
 import {
   selectCartItems,
   selectCartTotal,
-} from "../../features/cart/cart-selectors";
-import { CartItem } from "../../features/cart/cart-slice";
-import { StripeCheckoutButton } from "../../features/stripe/StripeCheckoutButton";
+} from ":features/cart/cart-selectors";
+import { CartItem } from ":features/cart/cart-slice";
+import { StripeCheckoutButton } from ":features/stripe/StripeCheckoutButton";
+
 import { Block, Header, Main, Total, Warning } from "./CheckoutPage.styles";
 import { CheckoutItem } from "./components/CheckoutItem/CheckoutItem";
 

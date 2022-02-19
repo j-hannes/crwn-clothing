@@ -7,7 +7,8 @@ import {
   itemDecreasedInCart,
   itemIncreasedInCart,
   itemRemovedFromCart,
-} from "../../../../features/cart/cart-slice";
+} from ":features/cart/cart-slice";
+
 import {
   Decrease,
   ImageContainer,

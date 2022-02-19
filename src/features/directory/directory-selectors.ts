@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import { RootState } from "../../app/store";
+import { RootState } from ":app/store";
 
 const selectDirectory = (state: RootState) => state.directory;
 

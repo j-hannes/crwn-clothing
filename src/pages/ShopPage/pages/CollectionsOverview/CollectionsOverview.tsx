@@ -2,7 +2,8 @@ import { FC } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { selectCollectionsForPreview } from "../../../../features/shop/shop-selectors";
+import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
+
 import { CollectionPreview } from "../CollectionPage/components/CollectionPreview/CollectionPreview";
 import { Main } from "./CollectionsOverview.styles";
 

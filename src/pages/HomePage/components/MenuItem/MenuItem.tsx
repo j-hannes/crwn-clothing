@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-import { Section } from "../../../../features/directory/directory-slice";
+import { Section } from ":features/directory/directory-slice";
+
 import {
   BackgroundImage,
   Content,

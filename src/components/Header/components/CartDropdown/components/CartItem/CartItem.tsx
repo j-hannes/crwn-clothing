@@ -1,6 +1,7 @@
 import { FC } from "react";
 
-import { CartItem as CartItemType } from "../../../../../../features/cart/cart-slice";
+import { CartItem as CartItemType } from ":features/cart/cart-slice";
+
 import { Details, Main } from "./CartItem.styles";
 
 interface Props {

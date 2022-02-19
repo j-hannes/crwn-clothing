@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { selectCartHidden } from "../../features/cart/cart-selectors";
-import { User } from "../../features/user/types";
-import { selectCurrentUser } from "../../features/user/user-selectors";
-import { auth } from "../../firebase/firebase.utils";
+import { auth } from ":app/firebase.utils";
+import { selectCartHidden } from ":features/cart/cart-selectors";
+import { User } from ":features/user/types";
+import { selectCurrentUser } from ":features/user/user-selectors";
+
 import { ReactComponent as Logo } from "./assets/crown.svg";
 import { CartDropdown } from "./components/CartDropdown/CartDropdown";
 import { CartIcon } from "./components/CartIcon/CartIcon";

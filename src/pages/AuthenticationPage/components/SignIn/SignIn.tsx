@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, Component, SyntheticEvent } from "react";
 
-import { CustomButton } from "../../../../components/CustomButton/CustomButton";
-import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from ":app/firebase.utils";
+import { CustomButton } from ":components/CustomButton/CustomButton";
+
 import { FormInput } from "../FormInput/FormInput";
 import { Buttons, Container, Title } from "./SignIn.styles";
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { CustomButton } from "../../../../components/CustomButton/CustomButton";
+import { CustomButton } from ":components/CustomButton/CustomButton";
 
 export const Main = styled.div`
   width: 22vw;
