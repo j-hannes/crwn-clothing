@@ -13,21 +13,21 @@
       - CartItem
       - CustomButton
   - Routes:
-    - HomePage
+    - Home
       - MenuItem
-    - ShopPage
+    - Shop
       - Routes:
-        - CollectionOverview
+        - CollectionsOverview
           - CollectionPreview
             - CollectionItem
               - CustomButton
-        - CollectionPage
+        - Collection
           - CollectionItem
             - CustomButton
-    - CheckoutPage
+    - Checkout
       - CheckoutItem
       - StripeCheckoutButton
-    - AuthenticationPage
+    - Authentication
       - SignIn
         - FormInput
         - CustomButton

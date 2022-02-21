@@ -18,8 +18,7 @@
       ":app/*": ["./src/app/*"],
       ":components/*": ["./src/components/*"],
       ":features/*": ["./src/features/*"],
-      ":hooks/*": ["./src/hooks/*"],
-      ":pages/*": ["./src/pages/*"]
+      ":hooks/*": ["./src/hooks/*"]
     }
   },
   "include": ["./src"]

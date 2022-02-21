@@ -21,10 +21,11 @@ import { Header } from ":components/Header/Header";
 import type { User } from ":features/user/types";
 import { selectCurrentUser } from ":features/user/user-selectors";
 import { userRegistered, userUnregistered } from ":features/user/user-slice";
-import { AuthenticationPage } from ":pages/AuthenticationPage/AuthenticationPage";
-import { CheckoutPage } from ":pages/CheckoutPage/CheckoutPage";
-import { HomePage } from ":pages/HomePage/HomePage";
-import { ShopPage } from ":pages/ShopPage/ShopPage";
+
+import { Authentication } from "./views/Authentication/Authentication";
+import { Checkout } from "./views/Checkout/Checkout";
+import { Home } from "./views/Home/Home";
+import { Shop } from "./views/Shop/Shop";
 
 interface Props {
   currentUser: User | null;
@@ -33,7 +34,7 @@ interface Props {
   userUnregistered: ActionCreatorWithoutPayload;
 }
 
-const Container = styled.div`
+const Main = styled.div`
   padding: 20px 40px;
   min-height: 100vh;
 
@@ -85,26 +86,22 @@ class App extends Component<Props> {
 
   render() {
     return (
-      <Container>
+      <Main>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
+          <Route exact path="/" component={Home} />
+          <Route path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route
             exact
             path="/auth"
             render={() =>
-              // TODO put redirect into SignInAndSignUpPage ?
-              this.props.currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <AuthenticationPage />
-              )
+              // TODO put redirect into Authentication component ?
+              this.props.currentUser ? <Redirect to="/" /> : <Authentication />
             }
           />
         </Switch>
-      </Container>
+      </Main>
     );
   }
 }

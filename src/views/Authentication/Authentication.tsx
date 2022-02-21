@@ -1,12 +1,12 @@
-import { Container } from "./AuthenticationPage.styles";
+import { Main } from "./Authentication.styles";
 import { SignIn } from "./components/SignIn/SignIn";
 import { SignUp } from "./components/SignUp/SignUp";
 
-export const AuthenticationPage = () => {
+export const Authentication = () => {
   return (
-    <Container>
+    <Main>
       <SignIn />
       <SignUp />
-    </Container>
+    </Main>
   );
 };

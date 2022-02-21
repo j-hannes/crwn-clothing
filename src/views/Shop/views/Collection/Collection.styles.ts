@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { CollectionItem } from ":pages/ShopPage/components/CollectionItem/CollectionItem";
+import { CollectionItem } from "../../components/CollectionItem/CollectionItem";
 
 export const Main = styled.div`
   display: flex;

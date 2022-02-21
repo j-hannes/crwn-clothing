@@ -6,7 +6,7 @@ import { RootState } from ":app/store";
 import { CollectionName } from ":features/directory/types";
 import { selectCollection } from ":features/shop/shop-selectors";
 
-import { Item, Items, Main, Title } from "./CollectionPage.styles";
+import { Item, Items, Main, Title } from "./Collection.styles";
 
 interface ShopRouteParams {
   collectionName: CollectionName;
@@ -21,9 +21,7 @@ const mapState = (
   };
 };
 
-const CollectionPageInner: FC<ReturnType<typeof mapState>> = ({
-  collection,
-}) => {
+const CollectionInner: FC<ReturnType<typeof mapState>> = ({ collection }) => {
   if (!collection) return null;
   const { title, items } = collection;
   return (
@@ -38,4 +36,4 @@ const CollectionPageInner: FC<ReturnType<typeof mapState>> = ({
   );
 };
 
-export const CollectionPage = connect(mapState)(CollectionPageInner);
+export const Collection = connect(mapState)(CollectionInner);

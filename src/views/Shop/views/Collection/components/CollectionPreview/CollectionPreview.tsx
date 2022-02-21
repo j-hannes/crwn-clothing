@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import { CollectionItem as CollectionItemType } from ":features/cart/types";
-import { CollectionItem } from ":pages/ShopPage/components/CollectionItem/CollectionItem";
 
+import { CollectionItem } from "../../../../components/CollectionItem/CollectionItem";
 import { Main, Preview, Title } from "./CollectionPreview.styles";
 
 interface Props {

@@ -9,7 +9,7 @@ import {
 import { CartItem } from ":features/cart/cart-slice";
 import { StripeCheckoutButton } from ":features/stripe/StripeCheckoutButton";
 
-import { Block, Header, Main, Total, Warning } from "./CheckoutPage.styles";
+import { Block, Header, Main, Total, Warning } from "./Checkout.styles";
 import { CheckoutItem } from "./components/CheckoutItem/CheckoutItem";
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
   total: number;
 }
 
-const CheckoutPageInner: FC<Props> = ({ items, total }) => {
+const CheckoutInner: FC<Props> = ({ items, total }) => {
   return (
     <Main>
       <Header>
@@ -46,4 +46,4 @@ const mapState = createStructuredSelector({
   total: selectCartTotal,
 });
 
-export const CheckoutPage = connect(mapState)(CheckoutPageInner);
+export const Checkout = connect(mapState)(CheckoutInner);

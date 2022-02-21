@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect";
 
 import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
 
-import { CollectionPreview } from "../CollectionPage/components/CollectionPreview/CollectionPreview";
+import { CollectionPreview } from "../Collection/components/CollectionPreview/CollectionPreview";
 import { Main } from "./CollectionsOverview.styles";
 
 const mapState = createStructuredSelector({

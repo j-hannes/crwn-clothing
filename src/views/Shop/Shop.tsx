@@ -6,10 +6,10 @@ import { Route, RouteComponentProps } from "react-router-dom";
 import { convertCollectionsSnapshotToMap, db } from ":app/firebase.utils";
 import { shopDataReceived } from ":features/shop/shop-slice";
 
-import { CollectionPage } from "./pages/CollectionPage/CollectionPage";
-import { CollectionsOverview } from "./pages/CollectionsOverview/CollectionsOverview";
+import { Collection } from "./views/Collection/Collection";
+import { CollectionsOverview } from "./views/CollectionsOverview/CollectionsOverview";
 
-export const ShopPage: FC<RouteComponentProps> = ({ match }) => {
+export const Shop: FC<RouteComponentProps> = ({ match }) => {
   const dispatch = useDispatch();
   useEffect(
     () =>
@@ -24,10 +24,7 @@ export const ShopPage: FC<RouteComponentProps> = ({ match }) => {
   return (
     <div>
       <Route exact path={match.path} component={CollectionsOverview} />
-      <Route
-        path={`${match.path}/:collectionName`}
-        component={CollectionPage}
-      />
+      <Route path={`${match.path}/:collectionName`} component={Collection} />
     </div>
   );
 };
