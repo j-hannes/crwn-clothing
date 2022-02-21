@@ -1,20 +1,23 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Collection } from "../directory/types";
+import { Collection, CollectionName } from "../directory/types";
 
 interface ShopState {
-  collections: Record<string, Collection>;
+  collections: Record<CollectionName, Collection> | null;
 }
 
 const initialState: ShopState = {
-  collections: {},
+  collections: null,
 };
 
 const shopSlice = createSlice({
   name: "Shop",
   initialState,
   reducers: {
-    shopDataReceived(draft, action: PayloadAction<Record<string, Collection>>) {
+    shopDataReceived(
+      draft,
+      action: PayloadAction<Record<CollectionName, Collection>>
+    ) {
       draft.collections = action.payload;
     },
   },

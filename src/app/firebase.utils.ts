@@ -17,7 +17,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 
-import { Collection } from ":features/directory/types";
+import { Collection, CollectionName } from ":features/directory/types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUzGIyQ0-kFh0TF3CBUJCYGvcm3JWl_is",
@@ -82,7 +82,7 @@ export const convertCollectionsSnapshotToMap = (
   const transformedCollections = collections.docs.map((doc) => {
     const { title, items } = doc.data();
     return {
-      routeName: encodeURI(title.toLowerCase()),
+      routeName: encodeURI(title.toLowerCase()) as CollectionName,
       id: doc.id,
       title,
       items,
@@ -92,7 +92,7 @@ export const convertCollectionsSnapshotToMap = (
   return transformedCollections.reduce((acc, collection) => {
     acc[collection.routeName] = collection;
     return acc;
-  }, {} as Record<string, Collection>);
+  }, {} as Record<CollectionName, Collection>);
 };
 
 const provider = new GoogleAuthProvider();

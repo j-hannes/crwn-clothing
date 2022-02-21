@@ -6,18 +6,19 @@ import { CollectionName } from "../directory/types";
 
 const selectShop = (state: RootState) => state.shop;
 
-export const selectCollections = createSelector(
+const selectCollections = createSelector(
   [selectShop],
   (shop) => shop.collections
 );
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  (collections) => Object.values(collections)
+  (collections) => (collections ? Object.values(collections) : [])
 );
 
 export const selectCollection = (collectionName: CollectionName) =>
-  createSelector(
-    [selectCollections],
-    (collections) => collections[collectionName]
+  createSelector([selectCollections], (collections) =>
+    collections && collectionName in collections
+      ? collections[collectionName]
+      : null
   );

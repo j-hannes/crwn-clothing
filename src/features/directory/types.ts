@@ -10,6 +10,6 @@ export type CollectionName =
 export interface Collection {
   id: string;
   title: string;
-  routeName: string;
+  routeName: CollectionName;
   items: CollectionItem[];
 }

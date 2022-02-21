@@ -12,3 +12,5 @@
 - [ ] replace styled components with vanilla-extract (or css modules?)
 - [ ] use rtk query
 - [ ] fix redux persist warning on serverTimestamp
+- [ ] centralize all types?
+- [ ] rename "collection" (entity) to "category" ?
