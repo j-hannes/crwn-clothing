@@ -10,8 +10,14 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import styled from "styled-components";
 
-import { auth, createUserProfileDocument } from ":app/firebase.utils";
+import {
+  // addCollectionAndItems,
+  auth,
+  createUserProfileDocument,
+} from ":app/firebase.utils";
 import { Header } from ":components/Header/Header";
+// import { Collection } from ":features/directory/types";
+// import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
 import type { User } from ":features/user/types";
 import { selectCurrentUser } from ":features/user/user-selectors";
 import { userRegistered, userUnregistered } from ":features/user/user-slice";
@@ -22,6 +28,7 @@ import { ShopPage } from ":pages/ShopPage/ShopPage";
 
 interface Props {
   currentUser: User | null;
+  // collections: Collection[];
   userRegistered: ActionCreatorWithPayload<User>;
   userUnregistered: ActionCreatorWithoutPayload;
 }
@@ -50,6 +57,7 @@ class App extends Component<Props> {
 
   componentDidMount() {
     const { userRegistered, userUnregistered } = this.props;
+
     this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const userRef = await createUserProfileDocument(currentUser);
@@ -64,6 +72,10 @@ class App extends Component<Props> {
       } else {
         userUnregistered();
       }
+      // addCollectionAndItems(
+      //   "collections",
+      //   collections.map(({ title, items }) => ({ title, items }))
+      // );
     });
   }
 
@@ -99,6 +111,7 @@ class App extends Component<Props> {
 
 const mapState = createStructuredSelector({
   currentUser: selectCurrentUser,
+  // collections: selectCollectionsForPreview,
 });
 
 const mapDispatch = {

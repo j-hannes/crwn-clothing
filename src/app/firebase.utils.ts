@@ -6,11 +6,13 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import {
+  collection,
   doc,
   getDoc,
   getFirestore,
   serverTimestamp,
   setDoc,
+  writeBatch,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -53,6 +55,21 @@ export const createUserProfileDocument = async (
   }
 
   return userRef;
+};
+
+export const addCollectionAndItems = async (
+  collectionKey: string,
+  objectsToAdd: any[]
+) => {
+  const collectionRef = collection(db, collectionKey);
+
+  const batch = writeBatch(db);
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef);
+    batch.set(newDocRef, obj);
+  });
+
+  return batch.commit();
 };
 
 const provider = new GoogleAuthProvider();
