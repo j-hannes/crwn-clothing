@@ -82,6 +82,12 @@ export const convertCollectionsSnapshotToMap = (
   const transformedCollections = collections.docs.map((doc) => {
     const { title, items } = doc.data();
     return {
+      // NOTE this is technically wrong because be are casing any string that
+      // could come from the server as a CollectionName type
+      // TODO
+      // - either write a converter function and create an additional "empty" collection
+      // - or retype routeName as string
+      // - redirect then to a 404 page in case routeName contains a value that is not a collection name
       routeName: encodeURI(title.toLowerCase()) as CollectionName,
       id: doc.id,
       title,
