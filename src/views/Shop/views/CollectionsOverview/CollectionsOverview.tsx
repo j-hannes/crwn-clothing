@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
 import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
@@ -11,9 +12,9 @@ const mapState = createStructuredSelector({
   collections: selectCollectionsForPreview,
 });
 
-const CollectionsOverviewInner: FC<ReturnType<typeof mapState>> = ({
-  collections,
-}) => {
+export type Props = ReturnType<typeof mapState> & RouteComponentProps;
+
+const CollectionsOverviewInner: FC<Props> = ({ collections }) => {
   return (
     <Main>
       {collections.map(({ id, ...collection }) => (

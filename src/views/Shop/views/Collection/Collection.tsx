@@ -12,16 +12,17 @@ interface ShopRouteParams {
   collectionName: CollectionName;
 }
 
-const mapState = (
-  state: RootState,
-  props: RouteComponentProps<ShopRouteParams>
-) => {
+type OwnProps = RouteComponentProps<ShopRouteParams>;
+
+const mapState = (state: RootState, props: OwnProps) => {
   return {
     collection: selectCollection(props.match.params.collectionName)(state),
   };
 };
 
-const CollectionInner: FC<ReturnType<typeof mapState>> = ({ collection }) => {
+export type Props = ReturnType<typeof mapState> & OwnProps;
+
+const CollectionInner: FC<Props> = ({ collection }) => {
   if (!collection) return null;
   const { title, items } = collection;
   return (
