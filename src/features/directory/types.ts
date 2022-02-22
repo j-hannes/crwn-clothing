@@ -8,7 +8,7 @@ export type CollectionName =
   | "mens";
 
 export interface Collection {
-  id: number;
+  id: string;
   title: string;
   routeName: string;
   items: CollectionItem[];

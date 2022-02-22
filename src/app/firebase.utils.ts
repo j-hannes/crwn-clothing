@@ -6,6 +6,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import {
+  DocumentData,
+  QuerySnapshot,
   collection,
   doc,
   getDoc,
@@ -14,6 +16,8 @@ import {
   setDoc,
   writeBatch,
 } from "firebase/firestore";
+
+import { Collection } from ":features/directory/types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUzGIyQ0-kFh0TF3CBUJCYGvcm3JWl_is",
@@ -70,6 +74,25 @@ export const addCollectionAndItems = async (
   });
 
   return batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (
+  collections: QuerySnapshot<DocumentData>
+) => {
+  const transformedCollections = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  return transformedCollections.reduce((acc, collection) => {
+    acc[collection.routeName] = collection;
+    return acc;
+  }, {} as Record<string, Collection>);
 };
 
 const provider = new GoogleAuthProvider();
