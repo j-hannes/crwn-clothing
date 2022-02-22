@@ -1,8 +1,10 @@
+import { CollectionName } from ":features/directory/types";
+
 export const SHOP_DATA = {
   hats: {
-    id: 1,
+    id: "1",
     title: "Hats",
-    routeName: "hats",
+    routeName: "hats" as CollectionName,
     items: [
       {
         id: 1,
@@ -61,9 +63,9 @@ export const SHOP_DATA = {
     ],
   },
   sneakers: {
-    id: 2,
+    id: "2",
     title: "Sneakers",
-    routeName: "sneakers",
+    routeName: "sneakers" as CollectionName,
     items: [
       {
         id: 10,
@@ -116,9 +118,9 @@ export const SHOP_DATA = {
     ],
   },
   jackets: {
-    id: 3,
+    id: "3",
     title: "Jackets",
-    routeName: "jackets",
+    routeName: "jackets" as CollectionName,
     items: [
       {
         id: 18,
@@ -153,9 +155,9 @@ export const SHOP_DATA = {
     ],
   },
   womens: {
-    id: 4,
+    id: "4",
     title: "Womens",
-    routeName: "womens",
+    routeName: "womens" as CollectionName,
     items: [
       {
         id: 23,
@@ -202,9 +204,9 @@ export const SHOP_DATA = {
     ],
   },
   mens: {
-    id: 5,
+    id: "5",
     title: "Mens",
-    routeName: "mens",
+    routeName: "mens" as CollectionName,
     items: [
       {
         id: 30,

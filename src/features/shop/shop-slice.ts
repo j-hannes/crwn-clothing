@@ -1,13 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { Collection, CollectionName } from "../directory/types";
+import { SHOP_DATA } from "./shop.data";
 
 interface ShopState {
   collections: Record<CollectionName, Collection> | null;
 }
 
 const initialState: ShopState = {
-  collections: null,
+  collections: SHOP_DATA,
 };
 
 const shopSlice = createSlice({
