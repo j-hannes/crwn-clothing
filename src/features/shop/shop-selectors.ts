@@ -16,9 +16,16 @@ export const selectCollectionsForPreview = createSelector(
   (collections) => (collections ? Object.values(collections) : [])
 );
 
+// TODO use lodash.memoize? or remove createSelector completely
 export const selectCollection = (collectionName: CollectionName) =>
   createSelector([selectCollections], (collections) =>
     collections && collectionName in collections
       ? collections[collectionName]
       : null
   );
+
+// TODO clarify usefulness of such a selector
+export const selectIsShopFetching = createSelector(
+  [selectShop],
+  (shop) => shop.isFetching
+);

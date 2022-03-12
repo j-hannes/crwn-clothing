@@ -1,10 +1,8 @@
-import { collection, onSnapshot } from "firebase/firestore";
 import { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, RouteComponentProps } from "react-router-dom";
 
-import { convertCollectionsSnapshotToMap, db } from ":app/firebase.utils";
-import { shopDataReceived } from ":features/shop/shop-slice";
+import { selectIsShopFetching } from ":features/shop/shop-selectors";
 import { withSpinner } from ":hocs/withSpinner/withSpinner";
 
 import {
@@ -15,21 +13,18 @@ import {
   CollectionsOverview,
   Props as CollectionsOverviewProps,
 } from "./views/CollectionsOverview/CollectionsOverview";
+import { fetchCollections } from ":features/shop/shop-slice";
 
 const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
 const CollectionWithSpinner = withSpinner(Collection);
 
 export const Shop: FC<RouteComponentProps> = ({ match }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const isFetching = useSelector(selectIsShopFetching);
 
   useEffect(() => {
-    setIsLoading(true);
-    return onSnapshot(collection(db, "collections"), async (snapshot) => {
-      const collectionsByRouteName = convertCollectionsSnapshotToMap(snapshot);
-      dispatch(shopDataReceived(collectionsByRouteName));
-      setIsLoading(false);
-    });
+    dispatch(fetchCollections());
   }, [dispatch]);
 
   return (
@@ -38,13 +33,13 @@ export const Shop: FC<RouteComponentProps> = ({ match }) => {
         exact
         path={match.path}
         component={(props: CollectionsOverviewProps) => (
-          <CollectionsOverviewWithSpinner isLoading={isLoading} {...props} />
+          <CollectionsOverviewWithSpinner isLoading={isFetching} {...props} />
         )}
       />
       <Route
         path={`${match.path}/:collectionName`}
         component={(props: CollectionProps) => (
-          <CollectionWithSpinner isLoading={isLoading} {...props} />
+          <CollectionWithSpinner isLoading={isFetching} {...props} />
         )}
       />
     </div>

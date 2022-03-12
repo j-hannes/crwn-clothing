@@ -17,7 +17,7 @@ const initialState: CartState = {
 };
 
 const cartSlice = createSlice({
-  name: "Cart",
+  name: "cart",
   initialState,
   reducers: {
     cartDropdownToggled(draft) {

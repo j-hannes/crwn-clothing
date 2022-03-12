@@ -50,7 +50,7 @@ const initialState: DirectoryState = {
 };
 
 const directorySlice = createSlice({
-  name: "Directory",
+  name: "directory",
   initialState,
   reducers: {
     // no reducers at this point

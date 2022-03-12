@@ -11,7 +11,7 @@ const initialState: UserState = {
 };
 
 const userSlice = createSlice({
-  name: "User",
+  name: "user",
   initialState,
   reducers: {
     userRegistered(draft, action: PayloadAction<User>) {

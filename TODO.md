@@ -5,6 +5,8 @@
 - [x] (re)organize files by feature
 - [x] add path aliases
 - [x] use static data by default
+- [ ] create test selector to understand recomputation of object access
+- [ ] remove useless selectors that only access an object property
 - [ ] add timeout to fetch request and load static data as a fallback
 - [ ] move dark mode from hook into global settings so it's excluded from components
 - [ ] use default imports for components and change connected component names to
