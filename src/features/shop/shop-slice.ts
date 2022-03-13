@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { convertCollectionsSnapshotToMap, db } from ":app/firebase.utils";
 
 import { Collection, CollectionName } from "../directory/types";
-// NOTE leave commented out import for offline use
+// NOTE leave commented out import, for offline use
 // import { SHOP_DATA } from "./shop.data";
 
 type Collections = Record<CollectionName, Collection>;
@@ -16,6 +16,7 @@ interface ShopState {
 }
 
 const initialState: ShopState = {
+  // NOTE leave commented out, for offline use
   // collections: SHOP_DATA,
   collections: null,
   isFetching: false,

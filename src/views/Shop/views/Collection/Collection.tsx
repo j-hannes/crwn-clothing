@@ -1,29 +1,14 @@
 import { FC } from "react";
-import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 
-import { RootState } from ":app/store";
-import { CollectionName } from ":features/directory/types";
-import { selectCollection } from ":features/shop/shop-selectors";
+import { Collection as CollectionType } from ":features/directory/types";
 
 import { Item, Items, Main, Title } from "./Collection.styles";
 
-interface ShopRouteParams {
-  collectionName: CollectionName;
-}
-
-type OwnProps = RouteComponentProps<ShopRouteParams>;
-
-const mapState = (state: RootState, props: OwnProps) => {
-  return {
-    collection: selectCollection(props.match.params.collectionName)(state),
-  };
+export type Props = {
+  collection: CollectionType;
 };
 
-export type Props = ReturnType<typeof mapState> & OwnProps;
-
-const CollectionInner: FC<Props> = ({ collection }) => {
-  if (!collection) return null;
+export const Collection: FC<Props> = ({ collection }) => {
   const { title, items } = collection;
   return (
     <Main>
@@ -36,5 +21,3 @@ const CollectionInner: FC<Props> = ({ collection }) => {
     </Main>
   );
 };
-
-export const Collection = connect(mapState)(CollectionInner);

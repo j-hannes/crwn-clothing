@@ -1,27 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, RouteComponentProps } from "react-router-dom";
 
-import { selectIsShopFetching } from ":features/shop/shop-selectors";
-import { withSpinner } from ":hocs/withSpinner/withSpinner";
-
-import {
-  Collection,
-  Props as CollectionProps,
-} from "./views/Collection/Collection";
-import {
-  CollectionsOverview,
-  Props as CollectionsOverviewProps,
-} from "./views/CollectionsOverview/CollectionsOverview";
 import { fetchCollections } from ":features/shop/shop-slice";
 
-const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
-const CollectionWithSpinner = withSpinner(Collection);
+import { CollectionContainer } from "./views/Collection/CollectionContainer";
+import { CollectionsOverviewContainer } from "./views/CollectionsOverview/CollectionsOverviewContainer";
 
 export const Shop: FC<RouteComponentProps> = ({ match }) => {
   const dispatch = useDispatch();
-
-  const isFetching = useSelector(selectIsShopFetching);
 
   useEffect(() => {
     dispatch(fetchCollections());
@@ -32,15 +19,13 @@ export const Shop: FC<RouteComponentProps> = ({ match }) => {
       <Route
         exact
         path={match.path}
-        component={(props: CollectionsOverviewProps) => (
-          <CollectionsOverviewWithSpinner isLoading={isFetching} {...props} />
-        )}
+        // @ts-ignore we'll remove the container shortly
+        component={CollectionsOverviewContainer}
       />
       <Route
         path={`${match.path}/:collectionName`}
-        component={(props: CollectionProps) => (
-          <CollectionWithSpinner isLoading={isFetching} {...props} />
-        )}
+        // @ts-ignore we'll remove the container shortly
+        component={CollectionContainer}
       />
     </div>
   );

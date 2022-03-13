@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
+import { createLogger } from "redux-logger";
 import {
   FLUSH,
   PAUSE,
@@ -23,6 +23,10 @@ const persistConfig = {
   storage,
   whitelist: ["cart"],
 };
+
+const logger = createLogger({
+  collapsed: true,
+});
 
 const rootReducer = combineReducers({
   cart: cartReducer,

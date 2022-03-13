@@ -1,20 +1,15 @@
 import { FC } from "react";
-import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 
-import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
+import { Collection } from ":features/directory/types";
 
 import { CollectionPreview } from "../Collection/components/CollectionPreview/CollectionPreview";
 import { Main } from "./CollectionsOverview.styles";
 
-const mapState = createStructuredSelector({
-  collections: selectCollectionsForPreview,
-});
+type Props = {
+  collections: Collection[];
+};
 
-export type Props = ReturnType<typeof mapState> & RouteComponentProps;
-
-const CollectionsOverviewInner: FC<Props> = ({ collections }) => {
+export const CollectionsOverview: FC<Props> = ({ collections }) => {
   return (
     <Main>
       {collections.map(({ id, ...collection }) => (
@@ -23,5 +18,3 @@ const CollectionsOverviewInner: FC<Props> = ({ collections }) => {
     </Main>
   );
 };
-
-export const CollectionsOverview = connect(mapState)(CollectionsOverviewInner);
