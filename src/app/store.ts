@@ -11,6 +11,9 @@ import {
   persistStore,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createSagaMiddleware from "redux-saga";
+
+import { watchFetchCollections } from ":features/shop/shop-sagas";
 
 import cartReducer from "../features/cart/cart-slice";
 import directoryReducer from "../features/directory/directory-slice";
@@ -37,6 +40,8 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const sagaMiddleware = createSagaMiddleware();
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {
@@ -45,12 +50,15 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     });
+    middleware.push(sagaMiddleware);
     if (process.env.NODE_ENV === "development") {
       middleware.push(logger);
     }
     return middleware;
   },
 });
+
+sagaMiddleware.run(watchFetchCollections);
 
 export const persistor = persistStore(store);
 

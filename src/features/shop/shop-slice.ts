@@ -1,9 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
-
-import { convertCollectionsSnapshotToMap, db } from ":app/firebase.utils";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 
 import { Collection, CollectionName } from "../directory/types";
+
 // NOTE leave commented out import, for offline use
 // import { SHOP_DATA } from "./shop.data";
 
@@ -22,29 +20,29 @@ const initialState: ShopState = {
   isFetching: false,
 };
 
-export const fetchCollections = createAsyncThunk<Collections>(
-  "shop/fetchCollections",
-  async () => {
-    try {
-      const snapshot = await getDocs(collection(db, "collections"));
-      return convertCollectionsSnapshotToMap(snapshot);
-    } catch (e: any) {
-      return e.message;
-    }
-  }
-);
+// export const fetchCollections = createAsyncThunk<Collections>(
+//   "shop/fetchCollections",
+//   async () => {
+//     try {
+//       const snapshot = await getDocs(collection(db, "collections"));
+//       return convertCollectionsSnapshotToMap(snapshot);
+//     } catch (e: any) {
+//       return e.message;
+//     }
+//   }
+// );
+export const fetchCollections = {
+  pending: createAction("async/fetchCollections.pending"),
+  fulfilled: createAction<Record<CollectionName, Collection>>(
+    "async/fetchCollections.fulfilled"
+  ),
+  rejected: createAction<string>("async/fetchCollections.rejected"),
+};
 
 const shopSlice = createSlice({
   name: "shop",
   initialState,
-  reducers: {
-    shopDataReceived(
-      draft,
-      action: PayloadAction<Record<CollectionName, Collection>>
-    ) {
-      draft.collections = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCollections.pending, (draft) => {
       draft.isFetching = true;
@@ -55,12 +53,9 @@ const shopSlice = createSlice({
     });
     builder.addCase(fetchCollections.rejected, (draft, action) => {
       draft.isFetching = false;
-      if (action.payload) {
-        draft.errorMessage = action.payload as string;
-      }
+      draft.errorMessage = action.payload;
     });
   },
 });
 
-export const { shopDataReceived } = shopSlice.actions;
 export default shopSlice.reducer;
