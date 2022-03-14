@@ -13,12 +13,11 @@ import {
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 
-import { watchFetchCollections } from ":features/shop/shop-sagas";
-
 import cartReducer from "../features/cart/cart-slice";
 import directoryReducer from "../features/directory/directory-slice";
 import shopReducer from "../features/shop/shop-slice";
 import userReducer from "../features/user/user-slice";
+import { rootSaga } from "./saga";
 
 const persistConfig = {
   key: "root",
@@ -58,7 +57,7 @@ export const store = configureStore({
   },
 });
 
-sagaMiddleware.run(watchFetchCollections);
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 

@@ -7,19 +7,6 @@ import { Collection, CollectionName } from "../directory/types";
 
 type Collections = Record<CollectionName, Collection>;
 
-interface ShopState {
-  collections: Collections | null;
-  isFetching: boolean;
-  errorMessage?: string;
-}
-
-const initialState: ShopState = {
-  // NOTE leave commented out, for offline use
-  // collections: SHOP_DATA,
-  collections: null,
-  isFetching: false,
-};
-
 // export const fetchCollections = createAsyncThunk<Collections>(
 //   "shop/fetchCollections",
 //   async () => {
@@ -32,11 +19,22 @@ const initialState: ShopState = {
 //   }
 // );
 export const fetchCollections = {
-  pending: createAction("async/fetchCollections.pending"),
-  fulfilled: createAction<Record<CollectionName, Collection>>(
-    "async/fetchCollections.fulfilled"
-  ),
-  rejected: createAction<string>("async/fetchCollections.rejected"),
+  pending: createAction("shop/fetchCollections.pending"),
+  fulfilled: createAction<Collections>("shop/fetchCollections.fulfilled"),
+  rejected: createAction<string>("shop/fetchCollections.rejected"),
+};
+
+interface ShopState {
+  collections: Collections | null;
+  isFetching: boolean;
+  errorMessage?: string;
+}
+
+const initialState: ShopState = {
+  // NOTE leave commented out, for offline use
+  // collections: SHOP_DATA,
+  collections: null,
+  isFetching: false,
 };
 
 const shopSlice = createSlice({
