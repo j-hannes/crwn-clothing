@@ -1,27 +1,16 @@
-import {
-  ActionCreatorWithPayload,
-  ActionCreatorWithoutPayload,
-} from "@reduxjs/toolkit";
-import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
-import { onSnapshot } from "firebase/firestore";
+// import { Collection } from ":features/directory/types";
+// import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import styled from "styled-components";
 
-import {
-  // addCollectionAndItems,
-  auth,
-  createUserProfileDocument,
-} from ":app/firebase.utils";
 import { Header } from ":components/Header/Header";
-// import { Collection } from ":features/directory/types";
-// import { selectCollectionsForPreview } from ":features/shop/shop-selectors";
 import type { User } from ":features/user/types";
 import { selectCurrentUser } from ":features/user/user-selectors";
-import { userRegistered, userUnregistered } from ":features/user/user-slice";
 
+// import { userRegistered, userUnregistered } from ":features/user/user-slice";
 import { Authentication } from "./views/Authentication/Authentication";
 import { Checkout } from "./views/Checkout/Checkout";
 import { Home } from "./views/Home/Home";
@@ -30,8 +19,8 @@ import { Shop } from "./views/Shop/Shop";
 interface Props {
   currentUser: User | null;
   // collections: Collection[];
-  userRegistered: ActionCreatorWithPayload<User>;
-  userUnregistered: ActionCreatorWithoutPayload;
+  // userRegistered: ActionCreatorWithPayload<User>;
+  // userUnregistered: ActionCreatorWithoutPayload;
 }
 
 const Main = styled.div`
@@ -54,35 +43,36 @@ const Main = styled.div`
 `;
 
 class App extends Component<Props> {
-  unsubscribeFromAuth() {}
+  // unsubscribeFromAuth() {}
 
-  componentDidMount() {
-    const { userRegistered, userUnregistered } = this.props;
+  // componentDidMount() {
+  // const { userRegistered, userUnregistered } = this.props;
 
-    this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const userRef = await createUserProfileDocument(currentUser);
-        if (userRef) {
-          onSnapshot(userRef, (snapshot) => {
-            userRegistered({
-              id: snapshot.id,
-              ...(snapshot.data() as FirebaseUser),
-            });
-          });
-        }
-      } else {
-        userUnregistered();
-      }
-      // addCollectionAndItems(
-      //   "collections",
-      //   collections.map(({ title, items }) => ({ title, items }))
-      // );
-    });
-  }
+  // this.unsubscribeFromAuth = onAuthStateChanged(auth, async (currentUser) => {
+  //   if (currentUser) {
+  //     const userRef = await createUserProfileDocument(currentUser);
+  //     if (userRef) {
+  //       onSnapshot(userRef, (snapshot) => {
+  //         userRegistered({
+  //           id: snapshot.id,
+  //           ...(snapshot.data() as FirebaseUser),
+  //         });
+  //       });
+  //     }
+  //   } else {
+  //     userUnregistered();
+  //   }
+  //   // NOTE leave this commented out, to fill db with static data from file
+  //   // addCollectionAndItems(
+  //   //   "collections",
+  //   //   collections.map(({ title, items }) => ({ title, items }))
+  //   // );
+  // });
+  // }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
 
   render() {
     return (
@@ -112,8 +102,8 @@ const mapState = createStructuredSelector({
 });
 
 const mapDispatch = {
-  userRegistered,
-  userUnregistered,
+  // userRegistered,
+  // userUnregistered,
 };
 
 export default connect(mapState, mapDispatch)(App);

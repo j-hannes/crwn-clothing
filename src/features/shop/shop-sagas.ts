@@ -4,7 +4,7 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import { call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 
 import { convertCollectionsSnapshotToMap, db } from ":app/firebase.utils";
 import { Collection, CollectionName } from ":features/directory/types";
@@ -35,4 +35,8 @@ export function* fetchCollectionsSaga(): Generator<
 
 export function* watchFetchCollections() {
   yield takeLatest(fetchCollections.pending, fetchCollectionsSaga);
+}
+
+export function* shopSagas() {
+  yield all([call(watchFetchCollections)]);
 }

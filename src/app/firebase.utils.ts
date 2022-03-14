@@ -1,10 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {
-  GoogleAuthProvider,
-  User,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, User, getAuth } from "firebase/auth";
 import {
   DocumentData,
   QuerySnapshot,
@@ -101,8 +96,8 @@ export const convertCollectionsSnapshotToMap = (
   }, {} as Record<CollectionName, Collection>);
 };
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
-export const signInWithGoogle = () => signInWithPopup(auth, provider);
+// export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
