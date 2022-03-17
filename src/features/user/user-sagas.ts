@@ -15,20 +15,21 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   auth,
   createUserProfileDocument,
+  getCurrentUser,
   googleProvider,
 } from ":app/firebase.utils";
 
 import {
   EmailAndPassword,
+  checkUserSession,
   emailSignIn,
   googleSignIn,
   signIn,
 } from "./user-slice";
 
 function* getSnapshotFromUserAuth(
-  userCredential: UserCredential
+  user: UserCredential["user"]
 ): Generator<any, void, unknown> {
-  const { user } = userCredential as UserCredential;
   const userRef = yield call(createUserProfileDocument, user);
   const userSnapshot = (yield getDoc(
     userRef as DocumentReference<DocumentData>
@@ -47,12 +48,12 @@ function* signInWithEmail({
   payload: EmailAndPassword;
 }): Generator<any, void, unknown> {
   try {
-    const userCredential = yield signInWithEmailAndPassword(
+    const { user } = (yield signInWithEmailAndPassword(
       auth,
       email,
       password
-    );
-    yield getSnapshotFromUserAuth(userCredential as UserCredential);
+    )) as UserCredential;
+    yield getSnapshotFromUserAuth(user as UserCredential["user"]);
   } catch (error: any) {
     yield put(signIn.rejected(error.message));
   }
@@ -60,8 +61,21 @@ function* signInWithEmail({
 
 function* signInWithGoogle(): Generator<any, void, unknown> {
   try {
-    const userCredential = yield signInWithPopup(auth, googleProvider);
-    yield getSnapshotFromUserAuth(userCredential as UserCredential);
+    const { user } = (yield signInWithPopup(
+      auth,
+      googleProvider
+    )) as UserCredential;
+    yield getSnapshotFromUserAuth(user as UserCredential["user"]);
+  } catch (error: any) {
+    yield put(signIn.rejected(error.message));
+  }
+}
+
+function* isUserAuthenticated(): Generator<any, void, unknown> {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    yield getSnapshotFromUserAuth(userAuth as UserCredential["user"]);
   } catch (error: any) {
     yield put(signIn.rejected(error.message));
   }
@@ -75,6 +89,14 @@ function* watchGoogleSignIn() {
   yield takeLatest(googleSignIn.pending, signInWithGoogle);
 }
 
+function* watchCheckUserSession() {
+  yield takeLatest(checkUserSession, isUserAuthenticated);
+}
+
 export function* userSagas() {
-  yield all([call(watchGoogleSignIn), call(watchEmailSignIn)]);
+  yield all([
+    call(watchGoogleSignIn),
+    call(watchEmailSignIn),
+    call(watchCheckUserSession),
+  ]);
 }

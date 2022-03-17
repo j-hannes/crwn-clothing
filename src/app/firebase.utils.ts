@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, User, getAuth } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  User,
+  getAuth,
+  onAuthStateChanged,
+} from "firebase/auth";
 import {
   DocumentData,
   QuerySnapshot,
@@ -100,4 +105,15 @@ export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
-// export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+
+export const getCurrentUser = () =>
+  new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });

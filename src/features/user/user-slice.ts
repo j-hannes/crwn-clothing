@@ -22,6 +22,8 @@ export const signIn = {
   rejected: createAction<string>("user/emailSignIn.rejected"),
 };
 
+export const checkUserSession = createAction("user/checkUserSession");
+
 interface UserState {
   currentUser: User | null;
   errorMessage?: string;
