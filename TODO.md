@@ -5,6 +5,7 @@
 - [x] (re)organize files by feature
 - [x] add path aliases
 - [x] use static data by default
+- [ ] convert sagas (back) to async thunks
 - [ ] create test selector to understand recomputation of object access
 - [ ] remove useless selectors that only access an object property
 - [ ] add timeout to fetch request and load static data as a fallback

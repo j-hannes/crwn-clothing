@@ -1,13 +1,13 @@
-import { signOut } from "firebase/auth";
 import { FC } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { auth } from ":app/firebase.utils";
+import { useAppDispatch } from ":app/hooks";
 import { selectCartHidden } from ":features/cart/cart-selectors";
 import { User } from ":features/user/types";
 import { selectCurrentUser } from ":features/user/user-selectors";
+import { signOut } from ":features/user/user-slice";
 
 import { ReactComponent as Logo } from "./assets/crown.svg";
 import { CartDropdown } from "./components/CartDropdown/CartDropdown";
@@ -19,30 +19,34 @@ interface Props {
   hidden: boolean;
 }
 
-const HeaderInner: FC<Props> = ({ currentUser, hidden }) => (
-  <Main>
-    <LogoContainer to="/">
-      <Logo />
-    </LogoContainer>
-    <Options>
-      <Option as={Link} to="/shop">
-        SHOP
-      </Option>
-      <Option as={Link} to="/contact">
-        CONTACT
-      </Option>
-      {currentUser ? (
-        <Option onClick={() => signOut(auth)}>SIGN OUT</Option>
-      ) : (
-        <Option as={Link} to="/auth">
-          SIGN IN
+const HeaderInner: FC<Props> = ({ currentUser, hidden }) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <Main>
+      <LogoContainer to="/">
+        <Logo />
+      </LogoContainer>
+      <Options>
+        <Option as={Link} to="/shop">
+          SHOP
         </Option>
-      )}
-      <CartIcon />
-    </Options>
-    {!hidden && <CartDropdown />}
-  </Main>
-);
+        <Option as={Link} to="/contact">
+          CONTACT
+        </Option>
+        {currentUser ? (
+          <Option onClick={() => dispatch(signOut())}>SIGN OUT</Option>
+        ) : (
+          <Option as={Link} to="/auth">
+            SIGN IN
+          </Option>
+        )}
+        <CartIcon />
+      </Options>
+      {!hidden && <CartDropdown />}
+    </Main>
+  );
+};
 
 const mapState = createStructuredSelector({
   currentUser: selectCurrentUser,

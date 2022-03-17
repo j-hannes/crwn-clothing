@@ -1,7 +1,8 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { signOut as firebaseSignOut } from "firebase/auth";
 
-// import { EmailAuthCredential, User } from "firebase/auth";
-// TODO user has id or not?
+import { auth } from ":app/firebase.utils";
+
 import { User } from "./types";
 
 export const googleSignIn = {
@@ -33,6 +34,14 @@ const initialState: UserState = {
   currentUser: null,
 };
 
+export const signOut = createAsyncThunk("user/signOut", async () => {
+  try {
+    firebaseSignOut(auth);
+  } catch (e: any) {
+    return e.message as string;
+  }
+});
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -52,6 +61,15 @@ const userSlice = createSlice({
     });
     builder.addCase(signIn.rejected, (draft, action) => {
       draft.errorMessage = action.payload;
+    });
+    builder.addCase(signOut.fulfilled, (draft, action) => {
+      draft.currentUser = null;
+      draft.errorMessage = initialState.errorMessage;
+    });
+    builder.addCase(signOut.rejected, (draft, action) => {
+      if (action.payload) {
+        draft.errorMessage = action.payload as string;
+      }
     });
   },
 });
