@@ -2,6 +2,7 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signOut as firebaseSignOut } from "firebase/auth";
 
 import { auth } from ":app/firebase.utils";
+import { clearCart } from ":features/cart/cart-slice";
 
 import { User } from "./types";
 
@@ -34,13 +35,17 @@ const initialState: UserState = {
   currentUser: null,
 };
 
-export const signOut = createAsyncThunk("user/signOut", async () => {
-  try {
-    firebaseSignOut(auth);
-  } catch (e: any) {
-    return e.message as string;
+export const signOut = createAsyncThunk(
+  "user/signOut",
+  async (_, { dispatch }) => {
+    try {
+      await firebaseSignOut(auth);
+      dispatch(clearCart());
+    } catch (e: any) {
+      return e.message as string;
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "user",

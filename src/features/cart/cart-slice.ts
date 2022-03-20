@@ -55,6 +55,9 @@ const cartSlice = createSlice({
         draft.items.splice(index, 1);
       }
     },
+    clearCart(draft) {
+      draft.items = [];
+    },
   },
 });
 
@@ -64,5 +67,6 @@ export const {
   itemIncreasedInCart,
   itemDecreasedInCart,
   itemRemovedFromCart,
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
