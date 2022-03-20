@@ -1,6 +1,14 @@
 {
   "extends": ["react-app", "react-app/jest"],
   "rules": {
+    "prettier/prettier": "off",
+    "react/self-closing-comp": [
+      "warn",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
     "import/order": [
       "warn",
       {
