@@ -1,99 +1,84 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ChangeEvent, Component, SyntheticEvent } from "react";
+import { ChangeEvent, FC, SyntheticEvent, useCallback, useState } from "react";
 
-import { auth, createUserProfileDocument } from ":app/firebase.utils";
+import { useAppDispatch } from ":app/hooks";
 import { CustomButton } from ":components/CustomButton/CustomButton";
+import { signUp } from ":features/user/user-slice";
 
 import { FormInput } from "../FormInput/FormInput";
 import { Main, Title } from "./SignUp.styles";
 
-export class SignUp extends Component {
-  state = {
-    displayName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
+const initialFormValues = {
+  displayName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
-  handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+export const SignUp: FC = () => {
+  const [formValues, setFormValues] = useState(initialFormValues);
 
-    const { displayName, email, password, confirmPassword } = this.state;
+  const dispatch = useAppDispatch();
 
-    if (password !== confirmPassword) {
-      alert("passwords don't match");
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e: SyntheticEvent) => {
+      e.preventDefault();
+      const { displayName, email, password, confirmPassword } = formValues;
+      if (password !== confirmPassword) {
+        // TODO move error into thunk and simply display error toast here
+        alert("passwords don't match");
+        return;
+      }
+      dispatch(signUp({ displayName, email, password }));
+    },
+    [dispatch, formValues]
+  );
 
-    try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      await createUserProfileDocument(user, { displayName });
-
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      // TODO improve error handling?
-      console.log("error on sign up", error);
-    }
-  };
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
+    setFormValues((state) => ({ ...state, [name]: value }));
+  }, []);
 
-    this.setState({ [name]: value });
-  };
+  const { displayName, email, password, confirmPassword } = formValues;
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
-    return (
-      <Main>
-        <Title>I do not have an account</Title>
-        <span>Sign up with your email and password</span>
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            type="text"
-            name="displayName"
-            value={displayName}
-            onChange={this.handleChange}
-            label="Display name"
-            required
-          />
-          <FormInput
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            label="Email"
-            required
-          />
-          <FormInput
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            label="Password"
-            required
-          />
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={this.handleChange}
-            label="Confirm password"
-            required
-          />
-          <CustomButton type="submit">SIGN UP</CustomButton>
-        </form>
-      </Main>
-    );
-  }
-}
+  return (
+    <Main>
+      <Title>I do not have an account</Title>
+      <span>Sign up with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          type="text"
+          name="displayName"
+          value={displayName}
+          onChange={handleChange}
+          label="Display name"
+          required
+        />
+        <FormInput
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          label="Email"
+          required
+        />
+        <FormInput
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          label="Password"
+          required
+        />
+        <FormInput
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={handleChange}
+          label="Confirm password"
+          required
+        />
+        <CustomButton type="submit">SIGN UP</CustomButton>
+      </form>
+    </Main>
+  );
+};

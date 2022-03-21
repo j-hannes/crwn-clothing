@@ -1,7 +1,10 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signOut as firebaseSignOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut,
+} from "firebase/auth";
 
-import { auth } from ":app/firebase.utils";
+import { auth, createUserProfileDocument } from ":app/firebase.utils";
 import { clearCart } from ":features/cart/cart-slice";
 
 import { User } from "./types";
@@ -34,6 +37,33 @@ interface UserState {
 const initialState: UserState = {
   currentUser: null,
 };
+
+export type SignUpValues = {
+  displayName: string;
+  email: string;
+  password: string;
+};
+
+export const signUp = createAsyncThunk(
+  "user/signUp",
+  async (
+    { displayName, email, password }: SignUpValues,
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await createUserProfileDocument(user, { displayName });
+      dispatch(checkUserSession());
+    } catch (e: any) {
+      // TODO can we check if it's a "SerializedError"?
+      return rejectWithValue(e.message as string);
+    }
+  }
+);
 
 export const signOut = createAsyncThunk(
   "user/signOut",
