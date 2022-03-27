@@ -11,11 +11,13 @@ import {
   persistStore,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createSagaMiddleware from "redux-saga";
 
 import cartReducer from "../features/cart/cart-slice";
 import directoryReducer from "../features/directory/directory-slice";
 import shopReducer from "../features/shop/shop-slice";
 import userReducer from "../features/user/user-slice";
+import { rootSaga } from "./saga";
 
 const persistConfig = {
   key: "root",
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const sagaMiddleware = createSagaMiddleware();
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {
@@ -45,12 +49,15 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     });
+    middleware.push(sagaMiddleware);
     if (process.env.NODE_ENV === "development") {
       middleware.push(logger);
     }
     return middleware;
   },
 });
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 

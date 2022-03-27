@@ -1,17 +1,18 @@
 import { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Route, RouteComponentProps } from "react-router-dom";
 
+import { useAppDispatch } from ":app/hooks";
 import { fetchCollections } from ":features/shop/shop-slice";
 
 import { CollectionContainer } from "./views/Collection/CollectionContainer";
 import { CollectionsOverviewContainer } from "./views/CollectionsOverview/CollectionsOverviewContainer";
 
 export const Shop: FC<RouteComponentProps> = ({ match }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollections());
+    // dispatch(fetchCollections());
+    dispatch(fetchCollections.pending());
   }, [dispatch]);
 
   return (

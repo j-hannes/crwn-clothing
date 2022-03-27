@@ -1,71 +1,81 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { ChangeEvent, Component, SyntheticEvent } from "react";
+import { ChangeEvent, FC, SyntheticEvent, useCallback, useState } from "react";
 
-import { auth, signInWithGoogle } from ":app/firebase.utils";
+import { useAppDispatch } from ":app/hooks";
 import { CustomButton } from ":components/CustomButton/CustomButton";
+import { emailSignIn, googleSignIn } from ":features/user/user-slice";
 
 import { FormInput } from "../FormInput/FormInput";
 import { Buttons, Main, Title } from "./SignIn.styles";
 
-export class SignIn extends Component {
-  state = {
-    email: "",
-    password: "",
-  };
+const initialFormData = {
+  email: "",
+  password: "",
+};
 
-  handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+export const SignIn: FC = () => {
+  const [formData, setFormData] = useState(initialFormData);
 
-    const { email, password } = this.state;
+  const dispatch = useAppDispatch();
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      this.setState({ email: "", password: "" });
-    } catch (error) {
-      console.log("error on sign in", error);
-    }
-  };
+  const handleSubmit = useCallback(
+    async (e: SyntheticEvent) => {
+      e.preventDefault();
+      // try {
+      //   await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      //   setEmailAndPassword(initialFormData);
+      // } catch (error) {
+      //   console.log("error on sign in", error);
+      // }
+      dispatch(emailSignIn.pending(formData));
+      setFormData(initialFormData);
+    },
+    [dispatch, formData]
+  );
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleGoogleSignIn = useCallback(
+    async (e: SyntheticEvent) => {
+      dispatch(googleSignIn.pending());
+    },
+    [dispatch]
+  );
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
+    setFormData((state) => ({ ...state, [name]: value }));
+  }, []);
 
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    return (
-      <Main>
-        <Title>I already have an account</Title>
-        <span>Sign in with your email and password</span>
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            type="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            label="email"
-            required
-          />
-          <FormInput
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            label="password"
-            required
-          />
-          <Buttons>
-            <CustomButton type="submit">Sign in</CustomButton>
-            <CustomButton
-              type="button"
-              isGoogleSignIn
-              onClick={signInWithGoogle}
-            >
-              Sign in with Google
-            </CustomButton>
-          </Buttons>
-        </form>
-      </Main>
-    );
-  }
-}
+  return (
+    <Main>
+      <Title>I already have an account</Title>
+      <span>Sign in with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          label="email"
+          required
+        />
+        <FormInput
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          label="password"
+          required
+        />
+        <Buttons>
+          <CustomButton type="submit">Sign in</CustomButton>
+          <CustomButton
+            type="button"
+            isGoogleSignIn
+            onClick={handleGoogleSignIn}
+          >
+            Sign in with Google
+          </CustomButton>
+        </Buttons>
+      </form>
+    </Main>
+  );
+};
