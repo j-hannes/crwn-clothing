@@ -1,6 +1,6 @@
 import { ComponentType, FC } from "react";
 
-import { SpinnerContainer, SpinnerOverlay } from "./withSpinner.styles";
+import { Spinner } from ":components/spinner/Spinner";
 
 export const withSpinner =
   <P extends object>(
@@ -8,11 +8,7 @@ export const withSpinner =
   ): FC<P & { isLoading: boolean }> =>
   ({ isLoading, ...props }) => {
     if (isLoading) {
-      return (
-        <SpinnerOverlay>
-          <SpinnerContainer />
-        </SpinnerOverlay>
-      );
+      return <Spinner />;
     }
     return <WrappedComponent {...(props as P)} />;
   };
